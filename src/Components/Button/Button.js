@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import s from './Button.module.css';
 
 export default class Button extends Component {
-  static propTypes = {
-    prop: PropTypes,
-  };
+  // static propTypes = {
+  //   prop: PropTypes,
+  // };
 
   // window.scrollTo({
   //     top: document.documentElement.scrollHeight,
@@ -15,7 +15,7 @@ export default class Button extends Component {
   render() {
     return (
       <div>
-        <button class={s.image}>img</button>
+        <button className={s.image}>img</button>
       </div>
     );
   }

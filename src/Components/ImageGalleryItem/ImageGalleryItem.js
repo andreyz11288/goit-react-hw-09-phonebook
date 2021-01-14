@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import s from './ImageGalleryItem.module.css';
-import Loader from 'react-loader-spinner';
-// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loaders from '../Loader/Loader';
 
 export default class ImageGalleryItem extends Component {
   state = {
     page: 1,
     gallery: null,
-    // loading: false,
     error: null,
-    // length: null,
     status: 'idle',
   };
 
+  componentDidMount() {}
+
   componentDidUpdate(prevProps, prevState) {
+    if (this.props.onFetch === '' && prevState.status !== this.state.status) {
+      this.setState({ status: 'idle' });
+      this.props.visible('true');
+    }
     if (prevProps.onFetch !== this.props.onFetch) {
       this.setState({ status: 'pending', gallery: null });
       fetch(
@@ -23,11 +26,12 @@ export default class ImageGalleryItem extends Component {
         .then(e => {
           this.setState({ gallery: e.hits });
           if (e.hits.length === 0) {
+            this.props.visible('true');
             return this.setState({ status: 'rejected' });
           }
           this.setState({ status: 'resolve' });
         })
-        .catch(error => this.setState({ status: 'rejected' }));
+        .catch(() => this.setState({ status: 'rejected' }));
     }
   }
 
@@ -46,15 +50,7 @@ export default class ImageGalleryItem extends Component {
       return <h1>Запрос не найден</h1>;
     }
     if (status === 'pending') {
-      return (
-        <Loader
-          type="Circles"
-          color="#00BFFF"
-          height={100}
-          width={100}
-          timeout={3000} //3 secs
-        />
-      );
+      return <Loaders />;
     }
 
     if (status === 'resolve') {
@@ -62,8 +58,10 @@ export default class ImageGalleryItem extends Component {
         <li key={e.id} className={s.ImageGalleryItem}>
           <img
             src={e.webformatURL}
+            data-src={e.largeImageURL}
             alt="img"
             className={s.ImageGalleryItemImage}
+            onClick={() => this.props.largeImageURL(e.largeImageURL)}
           />
         </li>
       ));
