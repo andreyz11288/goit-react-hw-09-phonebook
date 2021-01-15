@@ -7,7 +7,6 @@ import Modal from '../src/Components/Modal/Modal';
 class App extends Component {
   state = {
     search: '',
-    page: 1,
     datasrc: '',
   };
 
@@ -18,6 +17,12 @@ class App extends Component {
   largeImageURL = e => {
     this.setState({ datasrc: e });
   };
+  // pageNumber = e => {
+  //   const{page} = this.state
+  //   this.setState({
+  //    page: page + 1
+  //   })
+  // }
 
   render() {
     return (

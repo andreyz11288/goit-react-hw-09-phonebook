@@ -6,23 +6,34 @@ import { Component } from 'react';
 class ImageGallery extends Component {
   state = {
     visible: false,
+    page: 1,
   };
 
   largeImageURL = e => {
     this.props.src(e);
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.onFetch !== '' && this.state.visible !== true) {
-      this.setState({ visible: true });
-    }
-  }
-
   visible = length => {
     if (length) {
       if (this.state.visible) {
         this.setState({ visible: false });
       }
+    }
+    if (!length) {
+      this.setState({ visible: true });
+    }
+  };
+
+  pageNumber = e => {
+    const { page } = this.state;
+    this.setState({
+      page: page + 1,
+    });
+  };
+
+  resPage = e => {
+    if (e) {
+      this.setState({ page: 1 });
     }
   };
 
@@ -34,9 +45,11 @@ class ImageGallery extends Component {
             onFetch={this.props.onFetch}
             largeImageURL={this.largeImageURL}
             visible={this.visible}
+            numberPage={this.state.page}
+            resPage={this.resPage}
           />
         </ul>
-        {this.state.visible && <Button />}
+        {this.state.visible && <Button pageNumber={this.pageNumber} />}
       </div>
     );
   }

@@ -7,15 +7,16 @@ export default class Button extends Component {
   //   prop: PropTypes,
   // };
 
-  // window.scrollTo({
-  //     top: document.documentElement.scrollHeight,
-  //     behavior: 'smooth',
-  //   });
+  loadMore = () => {
+    this.props.pageNumber();
+  };
 
   render() {
     return (
-      <div>
-        <button className={s.image}>img</button>
+      <div className={s.ButtonDiv}>
+        <button className={s.Button} onClick={this.loadMore}>
+          Load more
+        </button>
       </div>
     );
   }

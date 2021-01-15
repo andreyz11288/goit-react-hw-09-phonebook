@@ -4,35 +4,81 @@ import Loaders from '../Loader/Loader';
 
 export default class ImageGalleryItem extends Component {
   state = {
-    page: 1,
-    gallery: null,
+    // page: 1,
+    gallery: [],
     error: null,
     status: 'idle',
   };
 
-  componentDidMount() {}
-
   componentDidUpdate(prevProps, prevState) {
+    let thisPage = 1;
+    // if (prevProps.onFetch !== this.props.onFetch) {
+    //   thisPage = 1
+
+    // }
+
     if (this.props.onFetch === '' && prevState.status !== this.state.status) {
       this.setState({ status: 'idle' });
-      this.props.visible('true');
+      this.props.visible(true);
     }
-    if (prevProps.onFetch !== this.props.onFetch) {
-      this.setState({ status: 'pending', gallery: null });
+    if (
+      prevProps.onFetch !== this.props.onFetch &&
+      prevProps.numberPage === this.props.numberPage
+    ) {
+      console.log('#1#');
+      console.log(prevProps.onFetch);
+      console.log(this.props.onFetch);
+      console.log(thisPage);
+      this.setState({ gallery: [] });
+      this.setState({ status: 'pending' });
+      this.props.visible(true);
+      this.props.resPage(true);
+      // console.log(this.props.numberPage);
       fetch(
-        `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.props.onFetch}&page=${this.state.page}&per_page=12&key=19060894-87e054058a337546d07970d77`,
+        `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.props.onFetch}&page=${thisPage}&per_page=12&key=19060894-87e054058a337546d07970d77`,
       )
         .then(r => r.json())
         .then(e => {
           this.setState({ gallery: e.hits });
+          this.props.visible(false);
           if (e.hits.length === 0) {
-            this.props.visible('true');
+            this.props.visible(true);
             return this.setState({ status: 'rejected' });
           }
           this.setState({ status: 'resolve' });
         })
         .catch(() => this.setState({ status: 'rejected' }));
     }
+    if (
+      prevProps.onFetch === this.props.onFetch &&
+      prevProps.numberPage < this.props.numberPage
+    ) {
+      console.log('@11111@');
+      console.log(prevProps.onFetch);
+      console.log(this.props.onFetch);
+      console.log(prevProps.numberPage);
+      console.log(this.props.numberPage);
+      thisPage = this.props.numberPage;
+      fetch(
+        `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.props.onFetch}&page=${thisPage}&per_page=12&key=19060894-87e054058a337546d07970d77`,
+      )
+        .then(r => r.json())
+        .then(e => {
+          const { gallery } = this.state;
+          this.setState({ gallery: [...gallery, ...e.hits] });
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: 'smooth',
+          });
+          this.props.visible(false);
+          if (e.hits.length === 0) {
+            this.props.visible(true);
+          }
+          this.setState({ status: 'resolve' });
+        })
+        .catch(() => this.setState({ status: 'rejected' }));
+    }
+    console.log(this.state.gallery);
   }
 
   render() {

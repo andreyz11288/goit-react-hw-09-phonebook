@@ -21,25 +21,20 @@ export default class Modal extends Component {
       }
     });
     window.addEventListener('click', e => {
-      if (e.path[0].alt !== 'img') {
+      if (e.target.alt !== 'img') {
         this.setState({ modal: false });
       }
-      if (e.path[0].alt === 'img') {
+      if (e.target.alt === 'img') {
         this.setState({ modal: true });
       }
     });
   }
   componentDidUpdate(prevProps, prevState) {
     window.removeEventListener('keydown', e => {
-      if (e.code === 'Escape') {
+      if (e.target.alt !== 'img') {
         this.setState({ modal: false });
       }
-    });
-    window.removeEventListener('click', e => {
-      if (e.path[0].alt !== 'img') {
-        this.setState({ modal: false });
-      }
-      if (e.path[0].alt === 'img') {
+      if (e.target.alt === 'img') {
         this.setState({ modal: true });
       }
     });
