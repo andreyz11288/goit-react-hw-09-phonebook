@@ -1,11 +1,16 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types'
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './Modal.module.css';
+import img from '../../img/404_error.jpg';
 
 export default class Modal extends Component {
-  // static propTypes = {
-  //     prop: PropTypes
-  // }
+  static defaultProps = {
+    src: img,
+  };
+
+  static propTypes = {
+    src: PropTypes.string,
+  };
 
   state = {
     modal: false,

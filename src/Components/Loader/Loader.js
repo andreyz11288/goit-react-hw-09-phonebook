@@ -8,7 +8,7 @@ export default class Loaders extends Component {
     return (
       <Loader
         className={s.loader}
-        type="TailSpin"
+        type="Watch"
         color="#00BFFF"
         height={100}
         width={100}

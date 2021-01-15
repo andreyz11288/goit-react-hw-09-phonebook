@@ -17,12 +17,6 @@ class App extends Component {
   largeImageURL = e => {
     this.setState({ datasrc: e });
   };
-  // pageNumber = e => {
-  //   const{page} = this.state
-  //   this.setState({
-  //    page: page + 1
-  //   })
-  // }
 
   render() {
     return (

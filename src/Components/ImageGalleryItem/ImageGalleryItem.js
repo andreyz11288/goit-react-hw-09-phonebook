@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import s from './ImageGalleryItem.module.css';
 import Loaders from '../Loader/Loader';
+import Api from '../Api/Api';
+import PropTypes from 'prop-types';
 
 export default class ImageGalleryItem extends Component {
+  static propTypes = {
+    visible: PropTypes.func.isRequired,
+    resPage: PropTypes.func.isRequired,
+    largeImageURL: PropTypes.func.isRequired,
+    numberPage: PropTypes.number.isRequired,
+    onFetch: PropTypes.string,
+  };
+
   state = {
-    // page: 1,
     gallery: [],
     error: null,
     status: 'idle',
@@ -12,10 +21,6 @@ export default class ImageGalleryItem extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     let thisPage = 1;
-    // if (prevProps.onFetch !== this.props.onFetch) {
-    //   thisPage = 1
-
-    // }
 
     if (this.props.onFetch === '' && prevState.status !== this.state.status) {
       this.setState({ status: 'idle' });
@@ -25,19 +30,12 @@ export default class ImageGalleryItem extends Component {
       prevProps.onFetch !== this.props.onFetch &&
       prevProps.numberPage === this.props.numberPage
     ) {
-      console.log('#1#');
-      console.log(prevProps.onFetch);
-      console.log(this.props.onFetch);
-      console.log(thisPage);
       this.setState({ gallery: [] });
       this.setState({ status: 'pending' });
       this.props.visible(true);
       this.props.resPage(true);
-      // console.log(this.props.numberPage);
-      fetch(
-        `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.props.onFetch}&page=${thisPage}&per_page=12&key=19060894-87e054058a337546d07970d77`,
-      )
-        .then(r => r.json())
+
+      Api(this.props.onFetch, thisPage)
         .then(e => {
           this.setState({ gallery: e.hits });
           this.props.visible(false);
@@ -53,16 +51,8 @@ export default class ImageGalleryItem extends Component {
       prevProps.onFetch === this.props.onFetch &&
       prevProps.numberPage < this.props.numberPage
     ) {
-      console.log('@11111@');
-      console.log(prevProps.onFetch);
-      console.log(this.props.onFetch);
-      console.log(prevProps.numberPage);
-      console.log(this.props.numberPage);
       thisPage = this.props.numberPage;
-      fetch(
-        `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.props.onFetch}&page=${thisPage}&per_page=12&key=19060894-87e054058a337546d07970d77`,
-      )
-        .then(r => r.json())
+      Api(this.props.onFetch, thisPage)
         .then(e => {
           const { gallery } = this.state;
           this.setState({ gallery: [...gallery, ...e.hits] });
@@ -78,7 +68,6 @@ export default class ImageGalleryItem extends Component {
         })
         .catch(() => this.setState({ status: 'rejected' }));
     }
-    console.log(this.state.gallery);
   }
 
   render() {
@@ -87,16 +76,24 @@ export default class ImageGalleryItem extends Component {
     if (status === 'idle') {
       return (
         <li>
-          <p>Введите запрос</p>
+          <h1>Введите запрос</h1>
         </li>
       );
     }
 
     if (status === 'rejected') {
-      return <h1>Запрос не найден</h1>;
+      return (
+        <li>
+          <h1>Запрос не найден</h1>
+        </li>
+      );
     }
     if (status === 'pending') {
-      return <Loaders />;
+      return (
+        <li>
+          <Loaders />
+        </li>
+      );
     }
 
     if (status === 'resolve') {

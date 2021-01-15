@@ -2,8 +2,14 @@ import s from './ImageGallery.module.css';
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import Button from '../Button/Button';
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ImageGallery extends Component {
+  static propTypes = {
+    onFetch: PropTypes.string,
+    src: PropTypes.func,
+  };
+
   state = {
     visible: false,
     page: 1,
