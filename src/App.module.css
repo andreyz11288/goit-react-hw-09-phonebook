@@ -4,3 +4,11 @@
   grid-gap: 16px;
   padding-bottom: 24px;
 }
+
+.navLink {
+  font-size: 18px;
+}
+.navLinkactive {
+  font-size: 18px;
+  color: red;
+}

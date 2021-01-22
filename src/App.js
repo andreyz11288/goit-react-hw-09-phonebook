@@ -1,30 +1,44 @@
 import { Component } from 'react';
+import { Route, NavLink, Switch } from 'react-router-dom';
+import HomePage from './Page/HomePage';
+import MoviesPage from './Page/MoviesPage';
 import s from './App.module.css';
-import Searchbar from './Components/Searchbar/Searchbar';
-import ImageGallery from './Components/ImageGallery/ImageGallery';
-import Modal from '../src/Components/Modal/Modal';
 
 class App extends Component {
-  state = {
-    search: '',
-    datasrc: '',
-  };
+  state = {};
 
-  onSubmit = e => {
-    return this.setState({ search: e });
-  };
-
-  largeImageURL = e => {
-    this.setState({ datasrc: e });
-  };
+  ClickHomePage = () => {};
 
   render() {
     return (
-      <div className={s.App}>
-        <Modal src={this.state.datasrc} />
-        <Searchbar onSubmit={this.onSubmit} />
-        <ImageGallery onFetch={this.state.search} src={this.largeImageURL} />
-      </div>
+      <>
+        <ul>
+          <li>
+            <NavLink
+              exact
+              to="/"
+              className={s.navLink}
+              activeClassName={s.navLinkactive}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/movies"
+              className={s.navLink}
+              activeClassName={s.navLinkactive}
+            >
+              Movies
+            </NavLink>
+          </li>
+        </ul>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/movies" component={MoviesPage} />
+          <Route component={HomePage} />
+        </Switch>
+      </>
     );
   }
 }
