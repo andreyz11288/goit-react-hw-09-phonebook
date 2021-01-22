@@ -12,3 +12,11 @@
   font-size: 18px;
   color: red;
 }
+
+.ul {
+  list-style-type: none;
+  display: flex;
+}
+.ul :not(:first-child) {
+  margin-left: 20px;
+}

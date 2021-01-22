@@ -1,0 +1,17 @@
+.genres {
+  display: flex;
+  list-style-type: none;
+  padding: 0px;
+}
+.genres :not(:first-child) {
+  margin-left: 10px;
+}
+.div {
+  display: flex;
+}
+.div :not(:first-child) {
+  margin-left: 20px;
+}
+h1 {
+  padding-left: 20px;
+}
