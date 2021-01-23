@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import s from './MoviesPage.module.css';
-import img from '../../img/error2-404.jpg';
+import Render from '../../Components/Render/Render';
 
 class MoviesPage extends Component {
   state = {
@@ -27,7 +27,7 @@ class MoviesPage extends Component {
         const response = await Axios.get(
           `https://api.themoviedb.org/3/search/movie?api_key=777b32778cd7d07cf03912f76d16cdd2&language=en-US&query=${this.state.search}&page=1&include_adult=false`,
         );
-        console.log(response.data.results);
+        // console.log(response.data.results);
         this.setState({
           movies: response.data.results,
         });
@@ -72,40 +72,46 @@ class MoviesPage extends Component {
             <NavLink to={navigations}>Search</NavLink>
           </span>
         </button>
-        {movies.length > 0 && (
-          <ul className={s.ul}>
-            {movies.map(movie => (
-              <li key={movie.id}>
-                <NavLink
-                  className={s.link}
-                  to={{
-                    pathname: `/movies/${movie.id}`,
-                    state: {
-                      from: {
-                        pathname: `${this.props.location.pathname}${this.props.location.search}`,
-                      },
-                    },
-                  }}
-                >
-                  {movie.backdrop_path ? (
-                    <img
-                      className={s.img}
-                      alt="img"
-                      height="150"
-                      src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-                    />
-                  ) : (
-                    <img className={s.img} alt="img" height="150" src={img} />
-                  )}
-                  <p className={s.p}>{movie.original_title}</p>
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        )}
+        <Render movies={movies} />
       </>
     );
   }
 }
 
 export default MoviesPage;
+
+// {
+//   movies.length > 0 && (
+//     <ul className={s.ul}>
+//       {movies.map(movie => (
+//         <li key={movie.id}>
+//           <NavLink
+//             className={s.link}
+//             to={{
+//               pathname: `/movies/${movie.id}`,
+//               state: {
+//                 from: {
+//                   pathname: `${this.props.location.pathname}${
+//                     this.props.location.search && this.props.location.search
+//                   }`,
+//                 },
+//               },
+//             }}
+//           >
+//             {movie.backdrop_path ? (
+//               <img
+//                 className={s.img}
+//                 alt="img"
+//                 height="150"
+//                 src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+//               />
+//             ) : (
+//               <img className={s.img} alt="img" height="150" src={img} />
+//             )}
+//             <p className={s.p}>{movie.original_title}</p>
+//           </NavLink>
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// }

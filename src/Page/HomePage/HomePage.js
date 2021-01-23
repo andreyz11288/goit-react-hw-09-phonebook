@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
-import s from './HomePage.module.css';
+import Render from '../../Components/Render/Render';
 
 class HomePage extends Component {
   state = {
@@ -20,27 +19,7 @@ class HomePage extends Component {
     return (
       <div>
         <h1>Trending today</h1>
-        <ul className={s.ul}>
-          {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              <NavLink
-                className={s.link}
-                to={{
-                  pathname: `/movies/${movie.id}`,
-                  state: { from: this.props.location },
-                }}
-              >
-                <img
-                  className={s.img}
-                  alt="img"
-                  height="150"
-                  src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                />
-                <p>{movie.original_title}</p>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        <Render movies={this.state.movies} />
       </div>
     );
   }
