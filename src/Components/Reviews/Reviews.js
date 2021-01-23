@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import s from './Reviews.module.css';
 
-export default class Reviews extends Component {
+class Reviews extends Component {
   state = {
     movies: [],
   };
@@ -27,7 +29,7 @@ export default class Reviews extends Component {
             {this.state.movies.map(e => (
               <li key={e.id}>
                 <h2>{e.author}</h2>
-                <p>{e.content}</p>
+                <p className={s.p}>{e.content}</p>
               </li>
             ))}
           </ul>
@@ -36,3 +38,4 @@ export default class Reviews extends Component {
     );
   }
 }
+export default withRouter(Reviews);

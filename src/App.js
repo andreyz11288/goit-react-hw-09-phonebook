@@ -1,47 +1,37 @@
-import { Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
-import HomePage from './Page/HomePage';
-import MoviesPage from './Page/MoviesPage';
-import MovieDetailsPage from './Page/MovieDetailsPage';
-// import Reviews from './Page/Reviews';
-import s from './App.module.css';
+import { Component, Suspense, lazy } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import NavBar from './Components/NavBar/NavBar';
+
+const HomePage = lazy(() =>
+  import('./Page/HomePage/HomePage' /*webpackChunkName: "HomePage"*/),
+);
+const MovieDetailsPage = lazy(() =>
+  import(
+    './Page/MovieDetailsPage/MovieDetailsPage' /*webpackChunkName: "MovieDetailsPage"*/
+  ),
+);
+const MoviesPage = lazy(() =>
+  import('./Page/MoviesPage/MoviesPage' /*webpackChunkName: "MoviesPage"*/),
+);
 
 class App extends Component {
   state = {};
 
-  ClickHomePage = () => {};
+  // ClickBackPage = e => {};
 
   render() {
     return (
       <>
-        <ul className={s.ul}>
-          <li>
-            <NavLink
-              exact
-              to="/"
-              className={s.navLink}
-              activeClassName={s.navLinkactive}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/movies"
-              className={s.navLink}
-              activeClassName={s.navLinkactive}
-            >
-              Movies
-            </NavLink>
-          </li>
-        </ul>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/movies/:id" component={MovieDetailsPage} />
-          {/* <Route path="/movies/:id/reviews" component={Reviews} /> */}
-          <Route path="/movies" component={MoviesPage} />
-          <Route component={HomePage} />
-        </Switch>
+        <NavBar />
+        <Suspense fallback={<h1>Lodding...</h1>}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route path="/movies/:id" component={MovieDetailsPage} />
+            {/* <Route path="/movies/:id/reviews" component={Reviews} /> */}
+            <Route path="/movies" component={MoviesPage} />
+            <Route component={HomePage} />
+          </Switch>
+        </Suspense>
       </>
     );
   }

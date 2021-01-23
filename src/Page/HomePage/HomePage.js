@@ -22,7 +22,12 @@ class HomePage extends Component {
         <ul>
           {this.state.movies.map(movie => (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
+              <Link
+                to={{
+                  pathname: `/movies/${movie.id}`,
+                  state: { from: this.props.location },
+                }}
+              >
                 {/* <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} /> */}
                 {movie.original_title}
               </Link>

@@ -4,7 +4,7 @@
   padding: 0px;
 }
 .genres :not(:first-child) {
-  margin-left: 10px;
+  margin-left: 15px !important;
 }
 .div {
   display: flex;
@@ -14,4 +14,14 @@
 }
 h1 {
   padding-left: 20px;
+}
+.navLink {
+  font-size: 18px;
+}
+.navLinkactive {
+  font-size: 18px;
+  color: red;
+}
+.container {
+  padding-left: 15px;
 }
