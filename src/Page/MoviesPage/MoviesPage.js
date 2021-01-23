@@ -36,9 +36,7 @@ class MoviesPage extends Component {
   }
 
   componentWillUnmount() {
-    this.setState({
-      movies: localStorage.setItem('movies', JSON.stringify(this.state.movies)),
-    });
+    localStorage.setItem('movies', JSON.stringify(this.state.movies));
   }
 
   onSubmit = e => {
