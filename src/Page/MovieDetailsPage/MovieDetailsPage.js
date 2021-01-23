@@ -16,18 +16,18 @@ export default class MovieDetailsPage extends Component {
       `https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=777b32778cd7d07cf03912f76d16cdd2&language=en-US`,
     );
 
-    console.log(response.data);
+    // console.log(response.data);
     this.setState({ movies: response.data });
   }
 
   render() {
     const { movies } = this.state;
+    const { match, history, location } = this.props;
     return (
       <div className={s.container}>
         <button
-          onClick={() =>
-            this.props.history.push(this.props.location.state.from.pathname)
-          }
+          className={s.button}
+          onClick={() => history.push(location.state.from.pathname)}
         >
           ☚ Go back
           {/* <NavLink to="/">Go back</NavLink> */}
@@ -56,15 +56,16 @@ export default class MovieDetailsPage extends Component {
               </ul>
             </div>
           </div>
-          <ul>
+          <ul className={s.addInfo}>
+            <h3>Additional information</h3>
             <NavLink
               className={s.navLink}
               activeClassName={s.navLinkactive}
               to={{
-                pathname: `${this.props.match.url}/cast`,
+                pathname: `${match.url}/cast`,
                 state: {
                   from: {
-                    pathname: `${this.props.location.state.from.pathname}`,
+                    pathname: `${location.state.from.pathname}`,
                   },
                 },
               }}
@@ -75,10 +76,10 @@ export default class MovieDetailsPage extends Component {
               className={s.navLink}
               activeClassName={s.navLinkactive}
               to={{
-                pathname: `${this.props.match.url}/reviews`,
+                pathname: `${match.url}/reviews`,
                 state: {
                   from: {
-                    pathname: `${this.props.location.state.from.pathname}`,
+                    pathname: `${location.state.from.pathname}`,
                   },
                 },
               }}

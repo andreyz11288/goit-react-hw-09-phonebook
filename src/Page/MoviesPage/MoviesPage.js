@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
+import s from './MoviesPage.module.css';
+import img from '../../img/error2-404.jpg';
 
 class MoviesPage extends Component {
   state = {
@@ -52,30 +54,32 @@ class MoviesPage extends Component {
   };
 
   render() {
-    console.log(this.state.movies.length);
+    const { value, navigations, movies } = this.state;
     return (
       <>
         <input
+          className={s.input}
           type="text"
           autoComplete="on"
           autoFocus
-          value={this.state.value}
+          value={value}
           onChange={this.inputValue}
         />
         <button
           type="submit"
           onClick={this.onSubmit}
-          className="{SearchFormButton}"
+          className={s.SearchFormButton}
         >
           <span className="{s.SearchFormButtonLabel}">
-            <Link to={this.state.navigations}>Search</Link>
+            <NavLink to={navigations}>Search</NavLink>
           </span>
         </button>
-        <ul>
-          {this.state.movies.length > 0 &&
-            this.state.movies.map(movie => (
+        {movies.length > 0 && (
+          <ul className={s.ul}>
+            {movies.map(movie => (
               <li key={movie.id}>
-                <Link
+                <NavLink
+                  className={s.link}
                   to={{
                     pathname: `/movies/${movie.id}`,
                     state: {
@@ -85,11 +89,22 @@ class MoviesPage extends Component {
                     },
                   }}
                 >
-                  {movie.original_title}
-                </Link>
+                  {movie.backdrop_path ? (
+                    <img
+                      className={s.img}
+                      alt="img"
+                      height="150"
+                      src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
+                    />
+                  ) : (
+                    <img className={s.img} alt="img" height="150" src={img} />
+                  )}
+                  <p className={s.p}>{movie.original_title}</p>
+                </NavLink>
               </li>
             ))}
-        </ul>
+          </ul>
+        )}
       </>
     );
   }

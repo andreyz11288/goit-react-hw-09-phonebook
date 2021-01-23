@@ -8,6 +8,9 @@
 }
 .div {
   display: flex;
+  padding: 10px 0px;
+  border-bottom: 2px solid darkgrey;
+  border-top: 2px solid darkgrey;
 }
 .div :not(:first-child) {
   margin-left: 20px;
@@ -24,4 +27,18 @@ h1 {
 }
 .container {
   padding-left: 15px;
+}
+
+.button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.addInfo {
+  border-bottom: 2px solid darkgrey;
+  border-top: 2px solid darkgrey;
+  margin: 0px;
+  padding: 20px 0px;
+}
+h3 {
+  margin: 0px 0px 10px 0px;
 }

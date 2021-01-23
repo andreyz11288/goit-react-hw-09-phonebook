@@ -1,11 +1,11 @@
 .ul {
   display: grid;
   max-width: calc(100vw - 48px);
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 16px;
   margin-top: 0;
   margin-bottom: 0;
-  padding: 20px 0px;
+  padding: 20px 0;
   list-style: none;
   margin-left: auto;
   margin-right: auto;
@@ -17,4 +17,21 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+/* .p {
+} */
+.link {
+  color: black;
+  text-decoration: none;
+}
+.link :hover {
+  color: blue;
+}
+.input {
+  width: 300px;
+  padding: 5px;
+  margin: 20px 0px 20px 20px;
+}
+.SearchFormButton {
+  padding: 5px;
 }
