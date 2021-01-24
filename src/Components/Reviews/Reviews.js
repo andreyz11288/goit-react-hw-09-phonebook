@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import s from './Reviews.module.css';
+import { reviews } from '../Api/Api';
 
 class Reviews extends Component {
   state = {
@@ -8,9 +9,7 @@ class Reviews extends Component {
   };
 
   async componentDidMount() {
-    const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${this.props.match.params.id}/reviews?api_key=777b32778cd7d07cf03912f76d16cdd2&language=en-US&page=1`,
-    );
+    const response = await Axios.get(reviews(`${this.props.match.params.id}`));
     // console.log(response);
     this.setState({ movies: response.data.results });
   }

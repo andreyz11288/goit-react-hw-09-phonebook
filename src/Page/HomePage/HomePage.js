@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Axios from 'axios';
 import Render from '../../Components/Render/Render';
+import { homePage } from '../../Components/Api/Api';
 
 class HomePage extends Component {
   state = {
@@ -8,9 +9,7 @@ class HomePage extends Component {
   };
 
   async componentDidMount() {
-    const response = await Axios.get(
-      'https://api.themoviedb.org/3/trending/movie/day?api_key=777b32778cd7d07cf03912f76d16cdd2',
-    );
+    const response = await Axios.get(`${homePage()}`);
     // console.log(response.data.results);
     this.setState({ movies: response.data.results });
   }

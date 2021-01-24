@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Axios from 'axios';
 import s from './MoviesPage.module.css';
 import Render from '../../Components/Render/Render';
+import { moviesPage } from '../../Components/Api/Api';
 
 class MoviesPage extends Component {
   state = {
@@ -24,9 +25,7 @@ class MoviesPage extends Component {
   async componentDidUpdate(prevProps, prevState) {
     if (this.state.search !== prevState.search) {
       if (this.state.search !== '') {
-        const response = await Axios.get(
-          `https://api.themoviedb.org/3/search/movie?api_key=777b32778cd7d07cf03912f76d16cdd2&language=en-US&query=${this.state.search}&page=1&include_adult=false`,
-        );
+        const response = await Axios.get(`${moviesPage(this.state.search)}`);
         // console.log(response.data.results);
         this.setState({
           movies: response.data.results,

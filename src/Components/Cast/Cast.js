@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import s from './Cast.module.css';
 import img from '../../img/404_error.jpg';
+import { cast } from '../Api/Api';
 
 export default class Cast extends Component {
   state = {
@@ -9,9 +10,7 @@ export default class Cast extends Component {
   };
 
   async componentDidMount() {
-    const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${this.props.match.params.id}/credits?api_key=777b32778cd7d07cf03912f76d16cdd2&language=en-US`,
-    );
+    const response = await Axios.get(cast(`${this.props.match.params.id}`));
     // console.log(response.data.cast);
     this.setState({ movies: response.data.cast });
   }

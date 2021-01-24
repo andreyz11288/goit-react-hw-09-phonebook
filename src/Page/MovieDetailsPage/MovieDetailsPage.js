@@ -5,6 +5,7 @@ import { Route } from 'react-router-dom';
 import Axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import s from './MovieDetailsPage.module.css';
+import { movieDetailsPage } from '../../Components/Api/Api';
 
 export default class MovieDetailsPage extends Component {
   state = {
@@ -13,7 +14,7 @@ export default class MovieDetailsPage extends Component {
 
   async componentDidMount() {
     const response = await Axios.get(
-      `https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=777b32778cd7d07cf03912f76d16cdd2&language=en-US`,
+      `${movieDetailsPage(this.props.match.params.id)}`,
     );
 
     // console.log(response.data);
