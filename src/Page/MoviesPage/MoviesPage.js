@@ -31,12 +31,9 @@ class MoviesPage extends Component {
         this.setState({
           movies: response.data.results,
         });
+        localStorage.setItem('movies', JSON.stringify(this.state.movies));
       }
     }
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem('movies', JSON.stringify(this.state.movies));
   }
 
   onSubmit = e => {
@@ -79,39 +76,3 @@ class MoviesPage extends Component {
 }
 
 export default MoviesPage;
-
-// {
-//   movies.length > 0 && (
-//     <ul className={s.ul}>
-//       {movies.map(movie => (
-//         <li key={movie.id}>
-//           <NavLink
-//             className={s.link}
-//             to={{
-//               pathname: `/movies/${movie.id}`,
-//               state: {
-//                 from: {
-//                   pathname: `${this.props.location.pathname}${
-//                     this.props.location.search && this.props.location.search
-//                   }`,
-//                 },
-//               },
-//             }}
-//           >
-//             {movie.backdrop_path ? (
-//               <img
-//                 className={s.img}
-//                 alt="img"
-//                 height="150"
-//                 src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-//               />
-//             ) : (
-//               <img className={s.img} alt="img" height="150" src={img} />
-//             )}
-//             <p className={s.p}>{movie.original_title}</p>
-//           </NavLink>
-//         </li>
-//       ))}
-//     </ul>
-//   );
-// }
