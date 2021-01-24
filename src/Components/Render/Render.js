@@ -1,6 +1,8 @@
 import React from 'react';
 import img from '../../img/error2-404.jpg';
 import { NavLink, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import s from './Render.module.css';
 
 function Render({ movies, location }) {
@@ -43,3 +45,7 @@ function Render({ movies, location }) {
   );
 }
 export default withRouter(Render);
+
+Render.propTypes = {
+  movies: PropTypes.array,
+};
