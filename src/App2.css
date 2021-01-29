@@ -1,0 +1,50 @@
+.alert-enter {
+  opacity: 0;
+  transform: translateX(100%);
+  background-color: tomato;
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms linear;
+  background-color: tomato;
+}
+.alert-enter-done {
+  background-color: tomato;
+}
+
+.alert-exit {
+  opacity: 1;
+  transform: translateX(0);
+  background-color: tomato;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 250ms linear;
+  background-color: tomato;
+}
+.alert {
+  margin-left: 20px;
+}
+.filter-enter {
+  opacity: 0;
+  transform: translatey(-100%);
+}
+.filter-enter-active {
+  opacity: 1;
+  transform: translatey(0);
+  transition: all 250ms linear;
+}
+.filter-enter-done {
+}
+
+.filter-exit {
+  opacity: 1;
+  transform: translatey(0);
+}
+.filter-exit-active {
+  opacity: 0;
+  transform: translatey(-100%);
+  transition: all 250ms linear;
+}

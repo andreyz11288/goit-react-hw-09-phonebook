@@ -1,15 +1,19 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import s from './App.module.css';
+import './App2.css';
 import Contacts from './component/Contacts/Contacts';
 import Phonebook from './component/Phonebook/Phonebook';
-import Section from './component/Section/Section';
 import Filter from './component/Filter/Filter';
+import { CSSTransition } from 'react-transition-group';
+import Alert from './component/Alert/Alert';
 
 export default class App extends Component {
   state = {
     contacts: [],
     filter: '',
+    text: '',
+    message: false,
   };
 
   componentDidMount() {
@@ -20,6 +24,20 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { contacts, text, message } = this.state;
+    if (
+      !message &&
+      contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
+      text !== ''
+    ) {
+      console.log(text);
+      this.setState({ message: true });
+      setTimeout(() => {
+        this.setState({ message: false, text: '' });
+      }, 2000);
+      return;
+    }
+
     if (this.state.contacts === prevState.contacts) {
       return;
     }
@@ -36,7 +54,8 @@ export default class App extends Component {
     };
 
     if (contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase())) {
-      return alert(`${text} is already in contacts`);
+      this.setState({ text });
+      return;
     }
     if (text !== '' && number !== '') {
       this.setState(prevState => {
@@ -68,18 +87,45 @@ export default class App extends Component {
   };
 
   render() {
+    console.log(this.state.contacts.length > 1);
     return (
       <div className={s.App}>
-        <Section title="Phonebook">
-          <Phonebook phonebookValue={this.phonebookValue} />
-        </Section>
-        <Section title="Contacts">
+        <div className={s.notif}>
+          <CSSTransition
+            in={true}
+            appear={true}
+            classNames={s}
+            timeout={500}
+            unmountOnExit
+          >
+            <h1>Phonebook</h1>
+          </CSSTransition>
+          <div className="alert">
+            <CSSTransition
+              in={this.state.message}
+              classNames="alert"
+              timeout={250}
+              unmountOnExit
+            >
+              <Alert />
+            </CSSTransition>
+          </div>
+        </div>
+        <Phonebook phonebookValue={this.phonebookValue} />
+        {/* <h1>Contacts</h1> */}
+        <CSSTransition
+          in={this.state.contacts.length > 1}
+          // appear={true}
+          classNames="filter"
+          timeout={250}
+          unmountOnExit
+        >
           <Filter filter={this.contactFilter} />
-          <Contacts
-            contacts={this.visibleContact()}
-            deleteList={this.deleteList}
-          />
-        </Section>
+        </CSSTransition>
+        <Contacts
+          contacts={this.visibleContact()}
+          deleteList={this.deleteList}
+        />
       </div>
     );
   }

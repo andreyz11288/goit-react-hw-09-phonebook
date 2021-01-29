@@ -1,25 +1,28 @@
 import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const Contacts = ({ contacts, deleteList }) => {
   return (
     <div className={s.div}>
-      <ul className={s.ul}>
+      <TransitionGroup component="ul" className={s.ul}>
         {contacts.map(e => (
-          <li className={s.li} key={e.id} id={e.id}>
-            <span>
-              {e.name}: {e.number}
-            </span>{' '}
-            <button
-              className={s.button}
-              type="submit"
-              onClick={() => deleteList(e.id)}
-            >
-              Delete
-            </button>
-          </li>
+          <CSSTransition key={e.id} classNames={s} timeout={250}>
+            <li className={s.li} key={e.id} id={e.id}>
+              <span>
+                {e.name}: {e.number}
+              </span>{' '}
+              <button
+                className={s.button}
+                type="submit"
+                onClick={() => deleteList(e.id)}
+              >
+                Delete
+              </button>
+            </li>
+          </CSSTransition>
         ))}
-      </ul>
+      </TransitionGroup>
     </div>
   );
 };
