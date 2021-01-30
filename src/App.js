@@ -34,7 +34,7 @@ export default class App extends Component {
       this.setState({ message: true });
       setTimeout(() => {
         this.setState({ message: false, text: '' });
-      }, 2000);
+      }, 3000);
       return;
     }
 

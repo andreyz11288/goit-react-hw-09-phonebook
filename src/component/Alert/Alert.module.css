@@ -1,18 +1,10 @@
-.enter {
-  opacity: 0;
-  transform: translateX(100%);
+.div {
+  margin-top: 20px;
+  background-color: tomato;
+  border-radius: 5px;
 }
-.enterActive {
-  opacity: 1;
-  transform: translateX(0);
-  transition: all 250ms linear;
-}
-.exit {
-  opacity: 1;
-  transform: translateX(0);
-}
-.exitActive {
-  opacity: 0;
-  transform: translateX(100%);
-  transition: all 250ms linear;
+.h1 {
+  padding: 15px;
+  color: white;
+  margin: 0px;
 }

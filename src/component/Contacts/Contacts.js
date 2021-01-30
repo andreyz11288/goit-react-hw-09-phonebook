@@ -10,8 +10,9 @@ const Contacts = ({ contacts, deleteList }) => {
           <CSSTransition key={e.id} classNames={s} timeout={250}>
             <li className={s.li} key={e.id} id={e.id}>
               <span>
-                {e.name}: {e.number}
-              </span>{' '}
+                <span className={s.span}>{e.name}</span>
+                <span className={s.span2}>{e.number}</span>
+              </span>
               <button
                 className={s.button}
                 type="submit"

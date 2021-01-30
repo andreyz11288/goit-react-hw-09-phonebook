@@ -1,12 +1,15 @@
 .form {
   display: block;
-  width: 350px;
+  width: 455px;
   padding: 20px;
-  border: 2px solid black;
+  /* border: 2px solid black; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 .button {
   margin-top: 10px;
   cursor: pointer;
+  width: 453px;
+  height: 30px;
 }
 .button:active {
   background-color: cornflowerblue;
@@ -22,10 +25,13 @@
 .input {
   display: block;
   border-radius: 5px;
+  width: 445px;
+  height: 30px;
 }
 .input:focus {
   outline: 0;
   border-radius: 5px;
+  border-color: blue;
 }
 input[type='number'] {
   -moz-appearance: textfield;
