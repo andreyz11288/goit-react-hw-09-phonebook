@@ -13,7 +13,9 @@ export default class App extends Component {
     contacts: [],
     filter: '',
     text: '',
+    text2: '',
     message: false,
+    message2: false,
   };
 
   componentDidMount() {
@@ -30,10 +32,9 @@ export default class App extends Component {
       contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
       text !== ''
     ) {
-      console.log(text);
-      this.setState({ message: true });
+      this.setState({ message: true, text2: 'Contact already exists!' });
       setTimeout(() => {
-        this.setState({ message: false, text: '' });
+        this.setState({ message: false, text: '', text2: '' });
       }, 3000);
       return;
     }
@@ -64,7 +65,10 @@ export default class App extends Component {
         };
       });
     } else {
-      return alert('Fill in all the fields');
+      this.setState({ message2: true, text2: 'Fill in all the fields' });
+      setTimeout(() => {
+        this.setState({ message2: false, text2: '' });
+      }, 3000);
     }
   };
 
@@ -87,7 +91,6 @@ export default class App extends Component {
   };
 
   render() {
-    console.log(this.state.contacts.length > 1);
     return (
       <div className={s.App}>
         <div className={s.notif}>
@@ -102,20 +105,18 @@ export default class App extends Component {
           </CSSTransition>
           <div className="alert">
             <CSSTransition
-              in={this.state.message}
+              in={this.state.message || this.state.message2}
               classNames="alert"
               timeout={250}
               unmountOnExit
             >
-              <Alert />
+              <Alert massage={this.state.text2} />
             </CSSTransition>
           </div>
         </div>
         <Phonebook phonebookValue={this.phonebookValue} />
-        {/* <h1>Contacts</h1> */}
         <CSSTransition
           in={this.state.contacts.length > 1}
-          // appear={true}
           classNames="filter"
           timeout={250}
           unmountOnExit
