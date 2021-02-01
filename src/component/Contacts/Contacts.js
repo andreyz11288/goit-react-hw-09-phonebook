@@ -1,6 +1,8 @@
 import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { deleteList } from '../../redux/deleteListAction';
 
 const Contacts = ({ contacts, deleteList }) => {
   return (
@@ -27,7 +29,16 @@ const Contacts = ({ contacts, deleteList }) => {
     </div>
   );
 };
-export default Contacts;
+
+const mapStateToProps = state => {
+  return { contacts: state.contacts.items };
+};
+
+const mapDispatchToProps = {
+  deleteList: deleteList,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contacts);
 
 Contacts.propTypes = {
   contacts: PropTypes.array,

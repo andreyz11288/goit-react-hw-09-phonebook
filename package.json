@@ -1,5 +1,5 @@
 {
-  "name": "goit-react-hw-05-phonebook",
+  "name": "goit-react-hw-06-phonebook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,9 +15,11 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loader-spinner": "^3.1.14",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-transition-group": "^4.4.1",
+    "redux": "^4.0.5",
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
