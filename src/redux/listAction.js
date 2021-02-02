@@ -9,7 +9,6 @@ const deleteList = id => {
   };
 };
 const addList = (text, number) => {
-  console.log(text, number);
   return {
     type: 'addList',
     payload: {
@@ -17,4 +16,13 @@ const addList = (text, number) => {
     },
   };
 };
-export { deleteList, addList };
+
+const filterList = filter => {
+  return {
+    type: 'filterList',
+    payload: {
+      filter,
+    },
+  };
+};
+export { deleteList, addList, filterList };

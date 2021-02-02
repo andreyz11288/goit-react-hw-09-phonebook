@@ -1,5 +1,4 @@
 import { Component } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
 import s from './App.module.css';
 import './App2.css';
 import Contacts from './component/Contacts/Contacts';
@@ -8,57 +7,46 @@ import Filter from './component/Filter/Filter';
 import { CSSTransition } from 'react-transition-group';
 import Alert from './component/Alert/Alert';
 import { connect } from 'react-redux';
-// import { addList } from 'redux/deleteListAction';
-import { addList } from '../src/redux/deleteListAction';
+import { addList } from './redux/listAction';
 
 class App extends Component {
   state = {
-    // contacts: [],
-    filter: '',
     text: '',
     text2: '',
     message: false,
     message2: false,
   };
 
-  // componentDidMount() {
-  //   const localStorageGetItem = localStorage.getItem('contacts');
-  //   if (localStorageGetItem) {
-  //     this.setState({ contacts: JSON.parse(localStorageGetItem) });
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    const { text, message } = this.state;
+    if (
+      !message &&
+      this.props.contacts
+        .map(e => e.name.toLowerCase())
+        .includes(text.toLowerCase()) &&
+      text !== ''
+    ) {
+      this.setState({ message: true, text2: 'Contact already exists!' });
+      setTimeout(() => {
+        this.setState({ message: false, text: '', text2: '' });
+      }, 3000);
+      return;
+    }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const { text, message } = this.state;
-  //   if (
-  //     !message &&
-  //     this.props.contacts
-  //       .map(e => e.name.toLowerCase())
-  //       .includes(text.toLowerCase()) &&
-  //     text !== ''
-  //   ) {
-  //     this.setState({ message: true, text2: 'Contact already exists!' });
-  //     setTimeout(() => {
-  //       this.setState({ message: false, text: '', text2: '' });
-  //     }, 3000);
-  //     return;
-  //   }
-
-  // if (this.state.contacts === prevState.contacts) {
-  //   return;
-  // }
-  // localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  // }
+    if (this.props.contacts === prevProps.contacts) {
+      return;
+    }
+    localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
+  }
 
   phonebookValue = (text, number) => {
-    // const { contacts } = this.state;
-
-    // const contact = {
-    //   id: uuidv4(),
-    //   name: text,
-    //   number,
-    // };
-    if (text !== '' && number !== '') {
+    if (
+      text !== '' &&
+      number !== '' &&
+      this.props.contacts
+        .map(e => e.name.toLowerCase())
+        .includes(text.toLowerCase()) === false
+    ) {
       this.props.onAddList(text, number);
     } else {
       this.setState({ message2: true, text2: 'Fill in all the fields' });
@@ -66,7 +54,6 @@ class App extends Component {
         this.setState({ message2: false, text2: '' });
       }, 3000);
     }
-    console.log(this.props.contacts);
     if (
       this.props.contacts
         .map(e => e.name.toLowerCase())
@@ -76,25 +63,6 @@ class App extends Component {
       return;
     }
   };
-
-  contactFilter = e => {
-    console.log(e);
-    this.setState({ filter: e.target.value });
-  };
-  // visibleContact = () => {
-  //   const { filter } = this.state;
-  //   return this.props.contacts.filter(e =>
-  //     e.name.toLowerCase().includes(filter.toLowerCase()),
-  //   );
-  // };
-
-  // deleteList = e => {
-  //   this.setState(prevState => {
-  //     return {
-  //       contacts: prevState.contacts.filter(contact => contact.id !== e),
-  //     };
-  //   });
-  // };
 
   render() {
     return (
@@ -129,10 +97,7 @@ class App extends Component {
         >
           <Filter filter={this.contactFilter} />
         </CSSTransition>
-        <Contacts
-        // contacts={this.visibleContact()}
-        // deleteList={this.props.deleteList}
-        />
+        <Contacts />
       </div>
     );
   }
@@ -143,7 +108,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  // console.log(dispatch(deleteList()));
   onAddList: addList,
 };
 

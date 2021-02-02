@@ -2,7 +2,7 @@ import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { deleteList } from '../../redux/deleteListAction';
+import { deleteList } from '../../redux/listAction';
 
 const Contacts = ({ contacts, deleteList }) => {
   return (
@@ -31,7 +31,11 @@ const Contacts = ({ contacts, deleteList }) => {
 };
 
 const mapStateToProps = state => {
-  return { contacts: state.contacts.items };
+  const { filter, items } = state.contacts;
+  const filterContact = items.filter(({ name }) =>
+    name.toLowerCase().includes(filter.toLowerCase()),
+  );
+  return { contacts: filterContact };
 };
 
 const mapDispatchToProps = {

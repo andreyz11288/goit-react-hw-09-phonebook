@@ -1,16 +1,13 @@
 import { createStore, combineReducers } from 'redux';
 import deleteListReduser from './deleteListReduser';
 
-// Используем редюсер-болванку
 const reducer = combineReducers({
   contacts: deleteListReduser,
 });
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 export default store;
-
-//  {contacts: {
-//       items: [],
-//       filter: '',
-//     }}
