@@ -32,14 +32,15 @@ const Contacts = ({ contacts, deleteList }) => {
 
 const mapStateToProps = state => {
   const { filter, items } = state.contacts;
+  const filterToLowerCase = filter.toLowerCase();
   const filterContact = items.filter(({ name }) =>
-    name.toLowerCase().includes(filter.toLowerCase()),
+    name.toLowerCase().includes(filterToLowerCase),
   );
   return { contacts: filterContact };
 };
 
 const mapDispatchToProps = {
-  deleteList: deleteList,
+  deleteList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);

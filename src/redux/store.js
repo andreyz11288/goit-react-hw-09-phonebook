@@ -1,13 +1,7 @@
-import { createStore, combineReducers } from 'redux';
 import deleteListReduser from './deleteListReduser';
+import { configureStore } from '@reduxjs/toolkit';
 
-const reducer = combineReducers({
-  contacts: deleteListReduser,
+const store = configureStore({
+  reducer: { contacts: deleteListReduser },
 });
-
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-);
-
 export default store;

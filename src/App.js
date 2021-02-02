@@ -95,7 +95,7 @@ class App extends Component {
           timeout={250}
           unmountOnExit
         >
-          <Filter filter={this.contactFilter} />
+          <Filter />
         </CSSTransition>
         <Contacts />
       </div>
