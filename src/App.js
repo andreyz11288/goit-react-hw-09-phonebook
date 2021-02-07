@@ -7,7 +7,7 @@ import Filter from './component/Filter/Filter';
 import { CSSTransition } from 'react-transition-group';
 import Alert from './component/Alert/Alert';
 import { connect } from 'react-redux';
-import { addList } from './redux/listAction';
+import { addList } from './redux/listOperations';
 
 class App extends Component {
   state = {
@@ -36,7 +36,7 @@ class App extends Component {
     if (this.props.contacts === prevProps.contacts) {
       return;
     }
-    localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
+    // localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
   }
 
   phonebookValue = (text, number) => {
