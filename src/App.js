@@ -8,6 +8,7 @@ import { CSSTransition } from 'react-transition-group';
 import Alert from './component/Alert/Alert';
 import { connect } from 'react-redux';
 import { addList } from './redux/listOperations';
+import { getContactsItems } from './redux/contacts-selectors';
 
 class App extends Component {
   state = {
@@ -32,11 +33,6 @@ class App extends Component {
       }, 3000);
       return;
     }
-
-    if (this.props.contacts === prevProps.contacts) {
-      return;
-    }
-    // localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
   }
 
   phonebookValue = (text, number) => {
@@ -104,7 +100,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  return { contacts: state.contacts.items };
+  return { contacts: getContactsItems(state) };
 };
 
 const mapDispatchToProps = {

@@ -1,18 +1,14 @@
 import { combineReducers } from 'redux';
-// import { DELTELIST, ADDLIST, FILTERLIST } from './type';
-import { fetchList } from './listOperations';
 import { createReducer } from '@reduxjs/toolkit';
-import { deleteSuccess, filterList, addSuccess } from './listAction';
-
-// const initialState = {
-//   contacts: {
-//     items: [],
-//     filter: '',
-//   },
-// };
+import {
+  deleteSuccess,
+  filterList,
+  addSuccess,
+  fetchSuccess,
+} from './listAction';
 
 const items = createReducer([], {
-  [fetchList]: (_, { payload }) => payload,
+  [fetchSuccess]: (_, { payload }) => payload,
   [addSuccess]: (state, { payload }) => [...state, payload],
   [deleteSuccess]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
