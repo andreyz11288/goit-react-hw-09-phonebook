@@ -1,0 +1,17 @@
+.App {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.appear {
+  transform: translateX(-100%);
+}
+.appearActive {
+  transform: translateX(0);
+  transition: all 500ms linear;
+}
+
+.notif {
+  display: flex;
+}

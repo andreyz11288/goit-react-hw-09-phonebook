@@ -1,0 +1,16 @@
+.input {
+  display: block;
+  border-radius: 5px;
+  width: 445px;
+  height: 30px;
+}
+.input:focus {
+  outline: 0;
+  border-radius: 5px;
+  border-color: blue;
+}
+.container {
+  margin-top: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

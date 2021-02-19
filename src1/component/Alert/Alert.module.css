@@ -1,0 +1,12 @@
+.div {
+  text-align: center;
+  margin-top: 20px;
+  background-color: tomato;
+  border-radius: 5px;
+  width: 230px;
+}
+.h1 {
+  padding: 15px;
+  color: white;
+  margin: 0px;
+}

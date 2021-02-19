@@ -1,0 +1,43 @@
+.loginForm {
+  display: block;
+  width: 455px;
+  padding: 20px;
+  /* border: 2px solid black; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0login5);
+}
+.loginButton {
+  margin-top: 10px;
+  cursor: pointer;
+  width: 453px;
+  height: 30px;
+}
+.loginButton:active {
+  background-color: cornflowerblue;
+  color: white;
+  border-radius: 5px;
+}
+.loginLabel {
+  margin-top: 10px;
+}
+.loginLabel {
+  display: block;
+}
+.loginInput {
+  display: block;
+  border-radius: 5px;
+  width: 445px;
+  height: 30px;
+}
+.loginInput:focus {
+  outline: 0;
+  border-radius: 5px;
+  border-color: blue;
+}
+/* input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+} */

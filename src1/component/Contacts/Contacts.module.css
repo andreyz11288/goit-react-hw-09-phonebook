@@ -1,0 +1,57 @@
+.ul :not(:first-child) {
+  margin-top: 10px;
+}
+.ul {
+  padding: 0px;
+  list-style-type: none;
+}
+.li {
+  font-weight: 600;
+  /* border: 2px solid lightgray; */
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.div {
+  width: 495px;
+}
+.button {
+  margin-left: 20px;
+  margin-top: 0px !important;
+  cursor: pointer;
+  /* float: right; */
+}
+.button:active {
+  background-color: cornflowerblue;
+  color: white;
+  border-radius: 5px;
+}
+.enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.enterActive {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms linear;
+}
+.exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.exitActive {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all 250ms linear;
+}
+.span2 {
+  display: inline-block;
+  width: 100px;
+  word-wrap: break-word;
+  text-align: end;
+  margin-top: 0px !important;
+}
+.span {
+  display: inline-block;
+  width: 270px;
+}
