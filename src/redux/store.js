@@ -1,6 +1,9 @@
-import deleteListReduser from './deleteListReduser';
+import deleteListReduser from './Contacts/deleteListReduser';
+import authReduser from './Auth/authReduser';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
+  persistStore,
+  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,
@@ -8,6 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -17,8 +21,19 @@ const middleware = [
   }),
 ];
 
+const authPersistConfig = {
+  key: 'token',
+  storage,
+  whitelist: ['token'],
+};
+
 const store = configureStore({
-  reducer: { contacts: deleteListReduser },
+  reducer: {
+    auth: persistReducer(authPersistConfig, authReduser),
+    contacts: deleteListReduser,
+  },
   middleware,
 });
-export default store;
+const persistor = persistStore(store);
+
+export default { store, persistor };

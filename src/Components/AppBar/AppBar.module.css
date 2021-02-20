@@ -1,0 +1,5 @@
+.div {
+  position: relative;
+  border-bottom: 2px solid darkgrey;
+  display: flex;
+}

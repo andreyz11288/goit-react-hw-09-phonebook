@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import s from './Login.module.css';
+import { connect } from 'react-redux';
+import { loginAuth } from '../../redux/Auth/authOperation';
 
-export default class Login extends Component {
+class Login extends Component {
   // static propTypes = {
   //   phonebookValue: PropTypes.func,
   // };
   state = {
-    text: '',
+    email: '',
     password: '',
   };
 
-  name = e => this.setState({ text: e.target.value });
+  email = e => this.setState({ email: e.target.value });
   password = e => this.setState({ password: e.target.value });
 
   btnClick = e => {
     e.preventDefault();
-    console.log(this.state.text, this.state.password);
+    // console.log(this.state.text, this.state.password);
+    this.props.onLogin(this.state);
     // this.props.phonebookValue(this.state.text, this.state.number);
-    this.setState({ text: '', password: '' });
+    this.setState({ email: '', password: '' });
   };
 
   render() {
@@ -32,7 +35,7 @@ export default class Login extends Component {
             type="text"
             value={text}
             placeholder="Enter name"
-            onChange={this.name}
+            onChange={this.email}
           />
         </label>
 
@@ -54,3 +57,8 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapDispatchToProps = {
+  onLogin: loginAuth,
+};
+export default connect(null, mapDispatchToProps)(Login);

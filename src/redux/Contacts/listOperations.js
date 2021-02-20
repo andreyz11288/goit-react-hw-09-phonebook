@@ -11,7 +11,7 @@ import {
   fetchError,
 } from './listAction';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+// axios.defaults.baseURL = 'http://localhost:4000';
 
 const addList = (text, number) => dispatch => {
   const item = { name: text, number: number };
@@ -19,7 +19,7 @@ const addList = (text, number) => dispatch => {
   axios
     .post('/contacts', item)
     .then(r => dispatch(addSuccess(r.data)))
-    .catch(error => dispatch(addError(error)));
+    .catch(error => dispatch(addError(error.message)));
 };
 
 const deleteList = id => dispatch => {
@@ -27,14 +27,14 @@ const deleteList = id => dispatch => {
   axios
     .delete(`/contacts/${id}`)
     .then(() => dispatch(deleteSuccess(id)))
-    .catch(error => dispatch(deleteError(error)));
+    .catch(error => dispatch(deleteError(error.message)));
 };
 const fetchList = () => dispatch => {
   dispatch(fetchStart());
   axios
-    .get(`/contacts/`)
+    .get(`/contacts`)
     .then(r => dispatch(fetchSuccess(r.data)))
-    .catch(error => dispatch(fetchError(error)));
+    .catch(error => dispatch(fetchError(error.message)));
 };
 
 export { addList, deleteList, fetchList };

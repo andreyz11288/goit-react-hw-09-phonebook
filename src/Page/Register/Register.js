@@ -1,27 +1,29 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import s from './Register.module.css';
+import { connect } from 'react-redux';
+import { registerAuth } from '../../redux/Auth/authOperation';
 
-export default class Register extends Component {
+class Register extends Component {
   // static propTypes = {
   //   phonebookValue: PropTypes.func,
   // };
   state = {
-    text: '',
-    mail: '',
+    name: '',
+    email: '',
     password: '',
   };
 
-  name = e => this.setState({ text: e.target.value });
-  mail = e => this.setState({ mail: e.target.value });
+  name = e => this.setState({ name: e.target.value });
+  email = e => this.setState({ email: e.target.value });
   password = e => this.setState({ password: e.target.value });
 
   btnClick = e => {
     e.preventDefault();
-    const { text, mail, password } = this.state;
-    console.log(text, mail, password);
-    // this.props.phonebookValue(this.state.text, this.state.number);
-    this.setState({ text: '', password: '', mail: '' });
+    // const { name, email, password } = this.state;
+    // console.log(name, email, password);
+    this.props.onRegister(this.state);
+    this.setState({ name: '', password: '', email: '' });
   };
 
   render() {
@@ -46,7 +48,7 @@ export default class Register extends Component {
             type="text"
             value={mail}
             placeholder="Enter mail"
-            onChange={this.mail}
+            onChange={this.email}
           />
         </label>
 
@@ -68,3 +70,10 @@ export default class Register extends Component {
     );
   }
 }
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+  onRegister: registerAuth,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

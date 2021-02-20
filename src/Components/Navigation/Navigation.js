@@ -1,27 +1,26 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import s from './NavBar.module.css';
+import s from './Navigation.module.css';
 
-export default function NavBar() {
+export default function Navigation() {
   return (
     <ul className={s.ul}>
       <li>
         <NavLink
-          exact
-          to="/"
+          to="/login"
           className={s.navLink}
           activeClassName={s.navLinkactive}
         >
-          Home
+          Login
         </NavLink>
       </li>
       <li>
         <NavLink
-          to="/contacts"
+          to="/register"
           className={s.navLink}
           activeClassName={s.navLinkactive}
         >
-          Contacts
+          Register
         </NavLink>
       </li>
     </ul>

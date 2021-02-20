@@ -2,10 +2,10 @@ import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { deleteList } from '../../redux/listOperations';
-import { fetchList } from '../../redux/listOperations';
+import { deleteList, fetchList } from '../../redux/Contacts/listOperations';
+// import { fetchList } from '../../redux/Contacts/listOperations';
 import React, { Component } from 'react';
-import { getFilterContact } from '../../redux/contacts-selectors';
+import { getFilterContact } from '../../redux/Contacts/contacts-selectors';
 
 class Contact extends Component {
   componentDidMount() {

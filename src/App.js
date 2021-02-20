@@ -1,6 +1,9 @@
 import { Component, Suspense, lazy } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import NavBar from './Components/NavBar/NavBar';
+import AppBar from './Components/AppBar/AppBar';
+import { getCurrentUser } from './redux/Auth/authOperation';
+// import Navigation from './Components/Navigation/Navigation';
 
 const HomePage = lazy(() =>
   import('./Page/HomePage/HomePage' /*webpackChunkName: "HomePage"*/),
@@ -19,17 +22,20 @@ class App extends Component {
   // state = {};
 
   // ClickBackPage = e => {};
+  componentDidMount() {
+    this.props.onRefresh();
+  }
 
   render() {
     return (
       <>
-        <NavBar />
+        <AppBar />
         <Suspense fallback={<h1>Lodding...</h1>}>
           <Switch>
             <Route exact path="/" component={HomePage} />
+            <Route path="/contacts" component={Contacts} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/contacts" component={Contacts} />
             <Route component={HomePage} />
           </Switch>
         </Suspense>
@@ -37,5 +43,10 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = state => ({});
 
-export default App;
+const mapDispatchToProps = {
+  onRefresh: getCurrentUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

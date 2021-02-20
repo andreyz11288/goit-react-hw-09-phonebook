@@ -7,8 +7,8 @@ import Filter from '../../Components/Filter/Filter';
 import { CSSTransition } from 'react-transition-group';
 import Alert from '../../Components/Alert/Alert';
 import { connect } from 'react-redux';
-import { addList } from '../../redux/listOperations';
-import { getContactsItems } from '../../redux/contacts-selectors';
+import { addList } from '../../redux/Contacts/listOperations';
+import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
 
 class Contacts extends Component {
   state = {
