@@ -1,27 +1,43 @@
-import { Component } from 'react';
-// import Axios from 'axios';
-// import Render from '../../Components/Render/Render';
-// import { homePage } from '../../Components/Api/Api';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { getIsAutheticated, getUserName } from '../../redux/Auth/authSelectors';
+import img from '../../img/idea-s.jpg';
+import img2 from '../../img/Five.jpg';
+import s from './HomePage.module.css';
 
-class HomePage extends Component {
-  // state = {
-  //   movies: [],
-  // };
+const HomePage = ({ name, isLogin }) => {
+  return (
+    <div className={s.div}>
+      <h1 className={s.h1}>Добропожаловать на сайт Phonebook</h1>
+      {isLogin ? (
+        <p className={s.p}>
+          <span className={s.span1}>{name},</span> &nbsp; &nbsp;
+          <span className={s.span2}>
+            мы очень рады что вы с нами!!! <br /> Теперь можете перейти к &nbsp;
+            <NavLink to="/contacts">Контактам</NavLink>
+          </span>
+        </p>
+      ) : (
+        <p>
+          Пожалуйста &nbsp;
+          <NavLink to="/login">авторизируйтесь</NavLink>
+          &nbsp; или &nbsp;
+          <NavLink to="/register"> зарегистрируйтесь </NavLink>.
+        </p>
+      )}
+      {isLogin ? (
+        <img className={s.image} src={img} alt="idea-s" />
+      ) : (
+        <img className={s.image} src={img2} height="500" alt="five" />
+      )}
+    </div>
+  );
+};
+const mapStateToProps = state => ({
+  isLogin: getIsAutheticated(state),
+  name: getUserName(state),
+});
 
-  // async componentDidMount() {
-  //   const response = await Axios.get(`${homePage()}`);
-  //   // console.log(response.data.results);
-  //   this.setState({ movies: response.data.results });
-  // }
+// const mapDispatchToProps = {}
 
-  render() {
-    return (
-      <div>
-        <h1>Домашняя страница</h1>
-        {/* <Render movies={this.state.movies} /> */}
-      </div>
-    );
-  }
-}
-
-export default HomePage;
+export default connect(mapStateToProps)(HomePage);

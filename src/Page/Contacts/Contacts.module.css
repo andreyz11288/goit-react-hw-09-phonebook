@@ -14,4 +14,5 @@
 
 .notif {
   display: flex;
+  height: 100px;
 }

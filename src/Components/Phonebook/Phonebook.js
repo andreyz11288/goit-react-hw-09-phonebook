@@ -24,30 +24,30 @@ export default class Phonebook extends Component {
     return (
       <form className={s.form} onSubmit={this.btnClick}>
         <label className={s.label}>
-          Name
+          Имя
           <input
             className={s.input}
             type="text"
             value={text}
-            placeholder="Enter name"
+            placeholder="Введите имя"
             onChange={this.phonebookValue}
           />
         </label>
 
         <label className={s.label}>
-          Number
+          Номер
           <input
             className={s.input}
             type="number"
             max="9999999999"
             value={number}
-            placeholder="Enter phone number"
+            placeholder="Введите номер телефона"
             onChange={this.numberValue}
           />
         </label>
         <br />
         <button type="submit" className={s.button}>
-          Add contact
+          Добавить контакт
         </button>
       </form>
     );

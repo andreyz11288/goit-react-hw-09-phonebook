@@ -28,7 +28,7 @@ class Contact extends Component {
                   type="submit"
                   onClick={() => this.props.deleteList(e.id)}
                 >
-                  Delete
+                  Удалить
                 </button>
               </li>
             </CSSTransition>

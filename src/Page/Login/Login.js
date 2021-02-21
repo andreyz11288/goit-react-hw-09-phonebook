@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import s from './Login.module.css';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { loginAuth } from '../../redux/Auth/authOperation';
 
 class Login extends Component {
@@ -27,33 +28,47 @@ class Login extends Component {
   render() {
     const { text, password } = this.state;
     return (
-      <form className={s.form} onSubmit={this.btnClick}>
-        <label className={s.label}>
-          Name
-          <input
-            className={s.input}
-            type="text"
-            value={text}
-            placeholder="Enter name"
-            onChange={this.email}
-          />
-        </label>
+      <>
+        <h1 className={s.h1}>Aвторизация</h1>
+        <form className={s.form} onSubmit={this.btnClick}>
+          <label className={s.label}>
+            Почта
+            <input
+              className={s.input}
+              type="text"
+              value={text}
+              placeholder="Введите почту"
+              onChange={this.email}
+            />
+          </label>
 
-        <label className={s.label}>
-          Password
-          <input
-            className={s.input}
-            type="text"
-            value={password}
-            placeholder="Enter password"
-            onChange={this.password}
-          />
-        </label>
-        <br />
-        <button type="submit" className={s.button}>
-          Login
-        </button>
-      </form>
+          <label className={s.label}>
+            Пароль
+            <input
+              className={s.input}
+              type="password"
+              value={password}
+              placeholder="Введите пароль"
+              onChange={this.password}
+            />
+          </label>
+          <br />
+          <button type="submit" className={s.button}>
+            Login
+          </button>
+        </form>
+        <p className={s.p}>
+          Ещё нет учётной записи? &nbsp;
+          <NavLink
+            exact
+            to="/register"
+            className={s.navLink}
+            activeClassName={s.navLinkactive}
+          >
+            Зарегистрируйтесь
+          </NavLink>
+        </p>
+      </>
     );
   }
 }

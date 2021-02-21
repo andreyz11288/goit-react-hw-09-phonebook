@@ -11,7 +11,7 @@ export default function Navigation() {
           className={s.navLink}
           activeClassName={s.navLinkactive}
         >
-          Login
+          Войти
         </NavLink>
       </li>
       <li>
@@ -20,7 +20,7 @@ export default function Navigation() {
           className={s.navLink}
           activeClassName={s.navLinkactive}
         >
-          Register
+          Регистрация
         </NavLink>
       </li>
     </ul>

@@ -8,12 +8,12 @@ const Filter = ({ filter, changeFilter }) => {
   return (
     <div className={s.container}>
       <label>
-        Find contacts by name <br />
+        Фильтр <br />
         <input
           value={filter}
           className={s.input}
           type="text"
-          placeholder="Enter filter"
+          placeholder="Введите значение "
           onChange={e => changeFilter(e.target.value)}
         />
       </label>

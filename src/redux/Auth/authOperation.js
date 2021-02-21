@@ -68,7 +68,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
   token.set(persistedToken);
   dispatch(getCurrentUserStart());
   try {
-    const response = await axios.post('/users/current');
+    const response = await axios.get('/users/current');
     dispatch(getCurrentUserSuccess(response.data));
   } catch (error) {
     dispatch(getCurrentUserError(error.message));

@@ -9,9 +9,9 @@ const UserMenu = ({ name, onLogout }) => {
   return (
     <div className={s.ul}>
       <img src={avatar} alt="" width="32" className={s.navLink} />
-      <span className={s.navLink}>Welcome, {name}</span>
+      <span className={s.navLink}>{name}</span>
       <button type="button" onClick={onLogout}>
-        Logout
+        Выйти
       </button>
     </div>
   );

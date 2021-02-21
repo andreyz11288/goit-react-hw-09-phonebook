@@ -27,46 +27,49 @@ class Register extends Component {
   };
 
   render() {
-    const { text, mail, password } = this.state;
+    const { name, email, password } = this.state;
     return (
-      <form className={s.form} onSubmit={this.btnClick}>
-        <label className={s.label}>
-          Name
-          <input
-            className={s.input}
-            type="text"
-            value={text}
-            placeholder="Enter name"
-            onChange={this.name}
-          />
-        </label>
+      <>
+        <h1 className={s.h1}>Регистрация</h1>
+        <form className={s.form} onSubmit={this.btnClick}>
+          <label className={s.label}>
+            Логин
+            <input
+              className={s.input}
+              type="text"
+              value={name}
+              placeholder="Введите логин"
+              onChange={this.name}
+            />
+          </label>
 
-        <label className={s.label}>
-          Mail
-          <input
-            className={s.input}
-            type="text"
-            value={mail}
-            placeholder="Enter mail"
-            onChange={this.email}
-          />
-        </label>
+          <label className={s.label}>
+            Почта
+            <input
+              className={s.input}
+              type="text"
+              value={email}
+              placeholder="Введите почту"
+              onChange={this.email}
+            />
+          </label>
 
-        <label className={s.label}>
-          Password
-          <input
-            className={s.input}
-            type="text"
-            value={password}
-            placeholder="Enter password"
-            onChange={this.password}
-          />
-        </label>
-        <br />
-        <button type="submit" className={s.button}>
-          Login
-        </button>
-      </form>
+          <label className={s.label}>
+            Пароль
+            <input
+              className={s.input}
+              type="password"
+              value={password}
+              placeholder="Введите пароль"
+              onChange={this.password}
+            />
+          </label>
+          <br />
+          <button type="submit" className={s.button}>
+            Зарегистрироваться
+          </button>
+        </form>
+      </>
     );
   }
 }

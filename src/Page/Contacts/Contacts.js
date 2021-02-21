@@ -27,7 +27,7 @@ class Contacts extends Component {
         .includes(text.toLowerCase()) &&
       text !== ''
     ) {
-      this.setState({ message: true, text2: 'Contact already exists!' });
+      this.setState({ message: true, text2: 'Такой контакт уже существует!' });
       setTimeout(() => {
         this.setState({ message: false, text: '', text2: '' });
       }, 3000);
@@ -45,7 +45,7 @@ class Contacts extends Component {
     ) {
       this.props.onAddList(text, number);
     } else {
-      this.setState({ message2: true, text2: 'Fill in all the fields' });
+      this.setState({ message2: true, text2: 'Заполните все поля' });
       setTimeout(() => {
         this.setState({ message2: false, text2: '' });
       }, 3000);
