@@ -12,4 +12,8 @@ export const deleteStart = createAction('deleteStart');
 export const deleteSuccess = createAction('deleteSuccess');
 export const deleteError = createAction('deleteError');
 
+export const upStart = createAction('upStart');
+export const upSuccess = createAction('upSuccess');
+export const upError = createAction('upError');
+
 export const filterList = createAction('filterList');

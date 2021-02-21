@@ -5,6 +5,7 @@ import {
   filterList,
   addSuccess,
   fetchSuccess,
+  upSuccess,
 } from './listAction';
 
 const items = createReducer([], {
@@ -12,6 +13,7 @@ const items = createReducer([], {
   [addSuccess]: (state, { payload }) => [...state, payload],
   [deleteSuccess]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
+  [upSuccess]: (state, { payload }) => [...state, payload],
 });
 
 const filter = createReducer('', {

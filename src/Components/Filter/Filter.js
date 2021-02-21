@@ -13,7 +13,7 @@ const Filter = ({ filter, changeFilter }) => {
           value={filter}
           className={s.input}
           type="text"
-          placeholder="Введите значение "
+          placeholder="Введите имя "
           onChange={e => changeFilter(e.target.value)}
         />
       </label>

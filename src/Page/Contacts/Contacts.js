@@ -9,6 +9,9 @@ import Alert from '../../Components/Alert/Alert';
 import { connect } from 'react-redux';
 import { addList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
+// import UpDate from '../../Components/UpDate/UpDate';
+
+// console.log(UpDate);
 
 class Contacts extends Component {
   state = {
@@ -16,9 +19,14 @@ class Contacts extends Component {
     text2: '',
     message: false,
     message2: false,
+    alert: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
+    // if (this.props.upDate !== prevState.alert) {
+    //   this.setState({ alert: this.props.upDate });
+    // }
+
     const { text, message } = this.state;
     if (
       !message &&
@@ -27,12 +35,38 @@ class Contacts extends Component {
         .includes(text.toLowerCase()) &&
       text !== ''
     ) {
+      this.setState({ alert: true });
+    }
+    if (this.state.alert === true) {
       this.setState({ message: true, text2: 'Такой контакт уже существует!' });
+      this.setState({ alert: false });
       setTimeout(() => {
         this.setState({ message: false, text: '', text2: '' });
       }, 3000);
       return;
     }
+    // if (this.state.alert === 'name') {
+    //   this.setState({
+    //     message: true,
+    //     text2: 'Контакт с таким именем уже существует!',
+    //   });
+    //   this.setState({ alert: false });
+    //   setTimeout(() => {
+    //     this.setState({ message: false, text: '', text2: '' });
+    //   }, 3000);
+    //   return;
+    // }
+    // if (this.state.alert === 'number') {
+    //   this.setState({
+    //     message: true,
+    //     text2: 'Контакт с таким номером уже существует!',
+    //   });
+    //   this.setState({ alert: false });
+    //   setTimeout(() => {
+    //     this.setState({ message: false, text: '', text2: '' });
+    //   }, 3000);
+    //   return;
+    // }
   }
 
   phonebookValue = (text, number) => {
@@ -59,8 +93,16 @@ class Contacts extends Component {
       return;
     }
   };
+  alert = e => {
+    if (e) {
+      console.log(e);
+      this.setState({ alert: e });
+    }
+  };
 
   render() {
+    // console.log(this.props.upDate);
+
     return (
       <div className={s.App}>
         <div className={s.notif}>
@@ -93,15 +135,16 @@ class Contacts extends Component {
         >
           <Filter />
         </CSSTransition>
-        <Contact />
+        <Contact alert={this.alert} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return { contacts: getContactsItems(state) };
-};
+const mapStateToProps = state => ({
+  contacts: getContactsItems(state),
+  // upDate: getContact(state),
+});
 
 const mapDispatchToProps = {
   onAddList: addList,

@@ -2,15 +2,30 @@ import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { deleteList, fetchList } from '../../redux/Contacts/listOperations';
-// import { fetchList } from '../../redux/Contacts/listOperations';
+import {
+  deleteList,
+  fetchList,
+  upList,
+} from '../../redux/Contacts/listOperations';
 import React, { Component } from 'react';
 import { getFilterContact } from '../../redux/Contacts/contacts-selectors';
+import UpDate from '../UpDate/UpDate';
 
 class Contact extends Component {
+  state = {
+    clickUp: false,
+  };
+
   componentDidMount() {
     this.props.fetchList();
+    if (this.state.clickUp) {
+      this.setState({ clickUp: false });
+    }
   }
+
+  onClick = e => {
+    this.setState({ clickUp: e });
+  };
 
   render() {
     return (
@@ -26,10 +41,20 @@ class Contact extends Component {
                 <button
                   className={s.button}
                   type="submit"
+                  onClick={() => this.onClick(!this.state.clickUp)}
+                >
+                  {this.state.clickUp ? 'Закрыть' : 'Обновить'}
+                </button>
+                <button
+                  className={s.button}
+                  type="submit"
                   onClick={() => this.props.deleteList(e.id)}
                 >
                   Удалить
                 </button>
+                {this.state.clickUp && (
+                  <UpDate id={e.id} alert={this.props.alert} />
+                )}
               </li>
             </CSSTransition>
           ))}
@@ -46,6 +71,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   deleteList: deleteList,
   fetchList: fetchList,
+  onClickUp: upList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contact);

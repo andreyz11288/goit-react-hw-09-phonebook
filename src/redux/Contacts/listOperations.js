@@ -9,6 +9,9 @@ import {
   fetchStart,
   fetchSuccess,
   fetchError,
+  upStart,
+  upSuccess,
+  upError,
 } from './listAction';
 
 // axios.defaults.baseURL = 'http://localhost:4000';
@@ -37,4 +40,13 @@ const fetchList = () => dispatch => {
     .catch(error => dispatch(fetchError(error.message)));
 };
 
-export { addList, deleteList, fetchList };
+const upList = (id, text, number) => dispatch => {
+  const item = { name: text, number: number };
+  dispatch(upStart());
+  axios
+    .patch(`/contacts/${id}`, item)
+    .then(r => dispatch(upSuccess(r.data)))
+    .catch(error => dispatch(upError(error.message)));
+};
+
+export { addList, deleteList, fetchList, upList };

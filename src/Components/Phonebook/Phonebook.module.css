@@ -1,6 +1,6 @@
 .form {
   display: block;
-  width: 455px;
+  width: 560px;
   padding: 20px;
   /* border: 2px solid black; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -8,7 +8,7 @@
 .button {
   margin-top: 10px;
   cursor: pointer;
-  width: 453px;
+  width: 548px;
   height: 30px;
 }
 .button:active {
@@ -25,7 +25,7 @@
 .input {
   display: block;
   border-radius: 5px;
-  width: 445px;
+  width: 550px;
   height: 30px;
 }
 .input:focus {
