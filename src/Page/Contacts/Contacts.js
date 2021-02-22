@@ -45,17 +45,17 @@ class Contacts extends Component {
       }, 3000);
       return;
     }
-    // if (this.state.alert === 'name') {
-    //   this.setState({
-    //     message: true,
-    //     text2: 'Контакт с таким именем уже существует!',
-    //   });
-    //   this.setState({ alert: false });
-    //   setTimeout(() => {
-    //     this.setState({ message: false, text: '', text2: '' });
-    //   }, 3000);
-    //   return;
-    // }
+    if (this.state.alert === 'name') {
+      this.setState({
+        message: true,
+        text2: 'Контакт с таким именем уже существует!',
+      });
+      this.setState({ alert: false });
+      setTimeout(() => {
+        this.setState({ message: false, text: '', text2: '' });
+      }, 3000);
+      return;
+    }
     // if (this.state.alert === 'number') {
     //   this.setState({
     //     message: true,

@@ -53,7 +53,12 @@ class Contact extends Component {
                   Удалить
                 </button>
                 {this.state.clickUp && (
-                  <UpDate id={e.id} alert={this.props.alert} />
+                  <UpDate
+                    id={e.id}
+                    alert={this.props.alert}
+                    name={e.name}
+                    number={e.number}
+                  />
                 )}
               </li>
             </CSSTransition>

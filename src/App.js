@@ -5,7 +5,6 @@ import AppBar from './Components/AppBar/AppBar';
 import { getCurrentUser } from './redux/Auth/authOperation';
 import PrivateRoute from './Components/PrivateRoute';
 import PublicRoute from './Components/PublicRoute';
-// import Navigation from './Components/Navigation/Navigation';
 
 const HomePage = lazy(() =>
   import('./Page/HomePage/HomePage' /*webpackChunkName: "HomePage"*/),
@@ -21,9 +20,6 @@ const Contacts = lazy(() =>
 );
 
 class App extends Component {
-  // state = {};
-
-  // ClickBackPage = e => {};
   componentDidMount() {
     this.props.onRefresh();
   }

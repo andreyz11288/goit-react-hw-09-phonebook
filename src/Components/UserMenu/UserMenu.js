@@ -2,14 +2,14 @@ import React from 'react';
 import s from './UserMenu.module.css';
 import { connect } from 'react-redux';
 import avatar from '../../img/404_error.jpg';
-import { getUserName } from '../../redux/Auth/authSelectors';
+import { getUserEmail } from '../../redux/Auth/authSelectors';
 import { logOutAuth } from '../../redux/Auth/authOperation';
 
-const UserMenu = ({ name, onLogout }) => {
+const UserMenu = ({ email, onLogout }) => {
   return (
     <div className={s.ul}>
       <img src={avatar} alt="" width="32" className={s.navLink} />
-      <span className={s.navLink}>{name}</span>
+      <span className={s.navLink}>{email}</span>
       <button type="button" onClick={onLogout}>
         Выйти
       </button>
@@ -18,7 +18,7 @@ const UserMenu = ({ name, onLogout }) => {
 };
 
 const mapStateToProps = state => ({
-  name: getUserName(state),
+  email: getUserEmail(state),
 });
 
 const mapDispatchToProps = {

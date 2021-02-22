@@ -4,24 +4,24 @@ import s from './UpData.module.css';
 import { connect } from 'react-redux';
 import { upList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
-import Contacts from '../../Page/Contacts/Contacts';
+// import Contacts from '../../Page/Contacts/Contacts';
 // const newContact = new Contacts();
 class UpDate extends Component {
   static propTypes = {
     phonebookValue: PropTypes.func,
   };
   state = {
-    id: '',
+    // id: '',
     text: '',
     number: '',
     alert: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.id !== this.props.id) {
-      this.setState({ id: this.props.id });
-    }
-    const { text, message, number } = this.state;
+    // if (prevState.id !== this.props.id) {
+    //   this.setState({ id: this.props.id });
+    // }
+    const { text, message } = this.state;
 
     if (
       !message &&
@@ -31,40 +31,40 @@ class UpDate extends Component {
       text !== '' &&
       !this.state.alert
     ) {
-      //   this.setState({ alert: 'name' });
-      //   setTimeout(() => {
-      //     this.setState({
-      //       alert: false,
-      //         text: '', number: ''
-      //     });
-      //   }, 3000);
-      //   return;
+      this.setState({ alert: 'name' });
+      setTimeout(() => {
+        this.setState({
+          text: '',
+          number: '',
+        });
+      }, 500);
+      setTimeout(() => {
+        this.setState({
+          alert: false,
+        });
+      }, 3000);
+      return;
     }
-    if (
-      !message &&
-      this.props.contacts.map(e => e.number).includes(number) &&
-      text !== '' &&
-      !this.state.alert
-    ) {
-      //   this.setState({ alert: 'number' });
-      //   setTimeout(() => {
-      //     this.setState({
-      //       alert: false,
-      //         text: '', number: ''
-      //     });
-      //   }, 3000);
-      //   return;
-    }
+
     this.props.alert(this.state.alert);
   }
 
-  phonebookValue = e => this.setState({ text: e.target.value });
+  phonebookValue = e => {
+    if (e.target.value !== '') {
+      this.setState({ text: e.target.value });
+    }
+  };
   numberValue = e => this.setState({ number: e.target.value });
 
   btnClick = e => {
     e.preventDefault();
-    // this.setState({ id: this.props.id });
-    this.props.onUp(this.state.id, this.state.text, this.state.number);
+    if (this.state.text === '') {
+      this.props.onUp(this.props.id, this.props.name, this.state.number);
+    } else if (this.state.number === '') {
+      this.props.onUp(this.props.id, this.state.text, this.props.number);
+    } else {
+      this.props.onUp(this.props.id, this.state.text, this.state.number);
+    }
     this.setState({ text: '', number: '', id: '' });
   };
   render() {
@@ -73,6 +73,7 @@ class UpDate extends Component {
       <form className={s.form} onSubmit={this.btnClick}>
         <label className={s.label}>
           <input
+            // required
             className={s.input}
             type="text"
             value={text}
@@ -83,6 +84,7 @@ class UpDate extends Component {
         &nbsp;
         <label className={s.label}>
           <input
+            // required
             className={s.input}
             type="number"
             max="9999999999"
@@ -91,8 +93,7 @@ class UpDate extends Component {
             onChange={this.numberValue}
           />
         </label>
-        {text !== '' && number !== '' ? (
-          // && !alert
+        {!alert ? (
           <button type="submit" className={s.button}>
             Обновить
           </button>
