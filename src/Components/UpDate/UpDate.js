@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import s from './UpData.module.css';
 import { connect } from 'react-redux';
-import { upList } from '../../redux/Contacts/listOperations';
+import { upList, fetchList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
+
 // import Contacts from '../../Page/Contacts/Contacts';
 // const newContact = new Contacts();
 class UpDate extends Component {
@@ -66,6 +67,9 @@ class UpDate extends Component {
       this.props.onUp(this.props.id, this.state.text, this.state.number);
     }
     this.setState({ text: '', number: '', id: '' });
+    setTimeout(() => {
+      this.props.upListFetch();
+    }, 250);
   };
   render() {
     const { text, number, alert } = this.state;
@@ -113,6 +117,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onUp: upList,
+  upListFetch: fetchList,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UpDate);
