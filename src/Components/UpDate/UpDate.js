@@ -1,115 +1,105 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import s from './UpData.module.css';
 import { connect } from 'react-redux';
 import { upList, fetchList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
 
-class UpDate extends Component {
-  static propTypes = {
-    phonebookValue: PropTypes.func,
-  };
-  state = {
-    text: '',
-    number: '',
-    alert: false,
-  };
+const UpDate = ({
+  propNumber,
+  propName,
+  id,
+  upListFetch,
+  contacts,
+  onUp,
+  propAlert,
+}) => {
+  const [text, setText] = useState('');
+  const [number, setNumber] = useState('');
+  const [alert, setAlert] = useState(false);
 
-  componentDidUpdate(prevProps, prevState) {
-    const { text, message } = this.state;
-
+  useEffect(() => {
     if (
-      !message &&
-      this.props.contacts
-        .map(e => e.name.toLowerCase())
-        .includes(text.toLowerCase()) &&
+      contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
       text !== '' &&
-      !this.state.alert
+      !alert
     ) {
-      this.setState({ alert: 'name' });
+      setAlert('name');
       setTimeout(() => {
-        this.setState({
-          text: '',
-          number: '',
-        });
+        setText('');
+        setNumber('');
       }, 500);
       setTimeout(() => {
-        this.setState({
-          alert: false,
-        });
+        setAlert(false);
       }, 3000);
       return;
     }
 
-    this.props.alert(this.state.alert);
-  }
+    propAlert(alert);
+  }, [text, number, alert, contacts, propAlert]);
 
-  phonebookValue = e => {
+  const phonebookValue = e => {
     if (e.target.value !== '') {
-      this.setState({ text: e.target.value });
+      setText(e.target.value);
     }
   };
-  numberValue = e => this.setState({ number: e.target.value });
+  const numberValue = e => setNumber(e.target.value);
 
-  btnClick = e => {
+  const btnClick = e => {
     e.preventDefault();
-    if (
-      this.state.text === '' &&
-      this.state.number !== '' &&
-      this.state.number !== this.props.number
-    ) {
-      this.props.onUp(this.props.id, this.props.name, this.state.number);
-    } else if (this.state.number === '' && this.state.text !== '') {
-      this.props.onUp(this.props.id, this.state.text, this.props.number);
-    } else if (this.state.number === '' && this.state.text === '') {
+    if (text === '' && number !== '' && number !== propNumber) {
+      onUp(id, propName, number);
+    } else if (number === '' && text !== '') {
+      onUp(id, text, propNumber);
+    } else if (number === '' && text === '') {
       return;
-    } else if (this.state.number !== '' && this.state.text !== '') {
-      this.props.onUp(this.props.id, this.state.text, this.state.number);
+    } else if (number !== '' && text !== '') {
+      onUp(id, text, number);
     }
-    this.setState({ text: '', number: '', id: '' });
+    setText('');
+    setNumber('');
     setTimeout(() => {
-      this.props.upListFetch();
+      upListFetch();
     }, 250);
   };
-  render() {
-    const { text, number, alert } = this.state;
-    return (
-      <form className={s.form} onSubmit={this.btnClick}>
-        <label className={s.label}>
-          <input
-            // required
-            className={s.input}
-            type="text"
-            value={text}
-            placeholder="Введите новое имя"
-            onChange={this.phonebookValue}
-          />
-        </label>
-        &nbsp;
-        <label className={s.label}>
-          <input
-            // required
-            className={s.input}
-            type="number"
-            max="9999999999"
-            value={number}
-            placeholder="Введите новый номер телефона"
-            onChange={this.numberValue}
-          />
-        </label>
-        {!alert ? (
-          <button type="submit" className={s.button}>
-            Обновить
-          </button>
-        ) : (
-          <button type="submit" disabled className={s.button}>
-            Обновить
-          </button>
-        )}
-      </form>
-    );
-  }
-}
+
+  return (
+    <form className={s.form} onSubmit={btnClick}>
+      <label className={s.label}>
+        <input
+          className={s.input}
+          type="text"
+          value={text}
+          placeholder="Введите новое имя"
+          onChange={phonebookValue}
+        />
+      </label>
+      &nbsp;
+      <label className={s.label}>
+        <input
+          className={s.input}
+          type="number"
+          max="9999999999"
+          value={number}
+          placeholder="Введите новый номер телефона"
+          onChange={numberValue}
+        />
+      </label>
+      {!alert ? (
+        <button type="submit" className={s.button}>
+          Обновить
+        </button>
+      ) : (
+        <button type="submit" disabled className={s.button}>
+          Обновить
+        </button>
+      )}
+    </form>
+  );
+};
+UpDate.propTypes = {
+  phonebookValue: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
   contacts: getContactsItems(state),

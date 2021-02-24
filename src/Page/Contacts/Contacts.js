@@ -9,9 +9,6 @@ import Alert from '../../Components/Alert/Alert';
 import { connect } from 'react-redux';
 import { addList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
-// import UpDate from '../../Components/UpDate/UpDate';
-
-// console.log(UpDate);
 
 class Contacts extends Component {
   state = {

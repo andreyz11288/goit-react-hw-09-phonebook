@@ -19,7 +19,6 @@ const Contact = ({ fetchList, deleteList, contacts, alert }) => {
   }, [fetchList]);
 
   const onClick = e => {
-    console.log(e);
     setClickUp(e);
   };
 
@@ -50,9 +49,9 @@ const Contact = ({ fetchList, deleteList, contacts, alert }) => {
               {clickUp && (
                 <UpDate
                   id={e.id}
-                  alert={alert}
-                  name={e.name}
-                  number={e.number}
+                  propAlert={alert}
+                  propName={e.name}
+                  propNumber={e.number}
                 />
               )}
             </li>
