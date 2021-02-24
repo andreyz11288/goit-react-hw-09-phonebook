@@ -1,55 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './Phonebook.module.css';
 
-export default class Phonebook extends Component {
-  static propTypes = {
-    phonebookValue: PropTypes.func,
-  };
-  state = {
-    text: '',
-    number: '',
-  };
+const Phonebook = ({ phonebookValue }) => {
+  const [text, setText] = useState('');
+  const [number, setNumber] = useState('');
 
-  phonebookValue = e => this.setState({ text: e.target.value });
-  numberValue = e => this.setState({ number: e.target.value });
+  const phonebookVal = e => setText(e.target.value);
 
-  btnClick = e => {
+  const numberValue = e => setNumber(e.target.value);
+
+  const btnClick = e => {
     e.preventDefault();
-    this.props.phonebookValue(this.state.text, this.state.number);
-    this.setState({ text: '', number: '' });
+    phonebookValue(text, number);
+    setText('');
+    setNumber('');
   };
-  render() {
-    const { text, number } = this.state;
-    return (
-      <form className={s.form} onSubmit={this.btnClick}>
-        <label className={s.label}>
-          Имя
-          <input
-            className={s.input}
-            type="text"
-            value={text}
-            placeholder="Введите имя"
-            onChange={this.phonebookValue}
-          />
-        </label>
 
-        <label className={s.label}>
-          Номер
-          <input
-            className={s.input}
-            type="number"
-            max="9999999999"
-            value={number}
-            placeholder="Введите номер телефона"
-            onChange={this.numberValue}
-          />
-        </label>
-        <br />
-        <button type="submit" className={s.button}>
-          Добавить контакт
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className={s.form} onSubmit={btnClick}>
+      <label className={s.label}>
+        Имя
+        <input
+          className={s.input}
+          type="text"
+          value={text}
+          placeholder="Введите имя"
+          onChange={phonebookVal}
+        />
+      </label>
+
+      <label className={s.label}>
+        Номер
+        <input
+          className={s.input}
+          type="number"
+          max="9999999999"
+          value={number}
+          placeholder="Введите номер телефона"
+          onChange={numberValue}
+        />
+      </label>
+      <br />
+      <button type="submit" className={s.button}>
+        Добавить контакт
+      </button>
+    </form>
+  );
+};
+
+Phonebook.propTypes = {
+  phonebookValue: PropTypes.func,
+};
+
+export default Phonebook;

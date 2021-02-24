@@ -1,4 +1,3 @@
-import React from 'react';
 import s from './Alert.module.css';
 
 export default function Alert({ massage }) {

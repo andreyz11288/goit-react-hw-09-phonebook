@@ -5,23 +5,17 @@ import { connect } from 'react-redux';
 import { upList, fetchList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
 
-// import Contacts from '../../Page/Contacts/Contacts';
-// const newContact = new Contacts();
 class UpDate extends Component {
   static propTypes = {
     phonebookValue: PropTypes.func,
   };
   state = {
-    // id: '',
     text: '',
     number: '',
     alert: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
-    // if (prevState.id !== this.props.id) {
-    //   this.setState({ id: this.props.id });
-    // }
     const { text, message } = this.state;
 
     if (
@@ -59,11 +53,17 @@ class UpDate extends Component {
 
   btnClick = e => {
     e.preventDefault();
-    if (this.state.text === '') {
+    if (
+      this.state.text === '' &&
+      this.state.number !== '' &&
+      this.state.number !== this.props.number
+    ) {
       this.props.onUp(this.props.id, this.props.name, this.state.number);
-    } else if (this.state.number === '') {
+    } else if (this.state.number === '' && this.state.text !== '') {
       this.props.onUp(this.props.id, this.state.text, this.props.number);
-    } else {
+    } else if (this.state.number === '' && this.state.text === '') {
+      return;
+    } else if (this.state.number !== '' && this.state.text !== '') {
       this.props.onUp(this.props.id, this.state.text, this.state.number);
     }
     this.setState({ text: '', number: '', id: '' });
