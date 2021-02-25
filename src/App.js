@@ -34,25 +34,41 @@ const App = () => {
       <AppBar />
       <Suspense fallback={<h1>Lodding...</h1>}>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route
+            exact
+            path="/"
+            // component={HomePage}
+          >
+            <HomePage />
+          </Route>
           <PrivateRoute
             path="/contacts"
-            component={Contacts}
+            // component={Contacts}
             redirectTo="/login"
-          />
+          >
+            <Contacts />
+          </PrivateRoute>
           <PublicRoute
             path="/login"
             restricted
             redirectTo="/"
-            component={Login}
-          />
+            // component={Login}
+          >
+            <Login />
+          </PublicRoute>
           <PublicRoute
             path="/register"
             restricted
             redirectTo="/"
-            component={Register}
-          />
-          <Route component={HomePage} />
+            // component={Register}
+          >
+            <Register />
+          </PublicRoute>
+          <Route
+          // component={HomePage}
+          >
+            <HomePage />
+          </Route>
         </Switch>
       </Suspense>
     </>
