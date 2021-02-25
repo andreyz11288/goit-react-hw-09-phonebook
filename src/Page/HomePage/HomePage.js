@@ -1,11 +1,13 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getIsAutheticated, getUserName } from '../../redux/Auth/authSelectors';
 import img from '../../img/idea-s.jpg';
 import img2 from '../../img/Five.jpg';
 import s from './HomePage.module.css';
 
-const HomePage = ({ name, isLogin }) => {
+const HomePage = () => {
+  const isLogin = useSelector(getIsAutheticated);
+  const name = useSelector(getUserName);
   return (
     <div className={s.div}>
       <h1 className={s.h1}>Добропожаловать на сайт Phonebook</h1>
@@ -33,11 +35,11 @@ const HomePage = ({ name, isLogin }) => {
     </div>
   );
 };
-const mapStateToProps = state => ({
-  isLogin: getIsAutheticated(state),
-  name: getUserName(state),
-});
+// const mapStateToProps = state => ({
+//   isLogin: getIsAutheticated(state),
+//   name: getUserName(state),
+// });
 
 // const mapDispatchToProps = {}
 
-export default connect(mapStateToProps)(HomePage);
+export default HomePage;

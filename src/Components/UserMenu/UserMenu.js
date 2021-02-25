@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import s from './UserMenu.module.css';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import avatar from '../../img/404_error.jpg';
 import { getUserEmail } from '../../redux/Auth/authSelectors';
 import { logOutAuth } from '../../redux/Auth/authOperation';
 
-const UserMenu = ({ email, onLogout }) => {
+const UserMenu = () => {
+  const dispatch = useDispatch();
+  const email = useSelector(getUserEmail);
+  const onLogout = useCallback(() => {
+    dispatch(logOutAuth());
+  }, [dispatch]);
+
   return (
     <div className={s.ul}>
       <img src={avatar} alt="" width="32" className={s.navLink} />
@@ -17,12 +23,12 @@ const UserMenu = ({ email, onLogout }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  email: getUserEmail(state),
-});
+// const mapStateToProps = state => ({
+//   email: getUserEmail(state),
+// });
 
-const mapDispatchToProps = {
-  onLogout: logOutAuth,
-};
+// const mapDispatchToProps = {
+//   onLogout: logOutAuth,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
+export default UserMenu;

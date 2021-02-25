@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import s from './Login.module.css';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { loginAuth } from '../../redux/Auth/authOperation';
 
-const Login = ({ onLogin }) => {
+// const mapDispatchToProps = {
+//   onLogin: loginAuth,
+// };
+
+const Login = () => {
   // static propTypes = {
+  const dispatch = useDispatch();
   //   phonebookValue: PropTypes.func,
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +27,7 @@ const Login = ({ onLogin }) => {
   const btnClick = e => {
     e.preventDefault();
     // console.log(this.state.text, this.state.password);
-    onLogin({ email, password });
+    dispatch(loginAuth({ email, password }));
     // this.props.phonebookValue(this.state.text, this.state.number);
     setEmail('');
     setPassword('');
@@ -77,7 +82,4 @@ const Login = ({ onLogin }) => {
   // }
 };
 
-const mapDispatchToProps = {
-  onLogin: loginAuth,
-};
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

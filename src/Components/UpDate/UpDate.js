@@ -1,42 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import s from './UpData.module.css';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { upList, fetchList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
+
+// const mapStateToProps = state => ({
+//   contacts: getContactsItems(state),
+// });
+
+// const mapDispatchToProps = {
+//   onUp: upList,
+//   upListFetch: fetchList,
+// };
 
 const UpDate = ({
   propNumber,
   propName,
   id,
-  upListFetch,
-  contacts,
-  onUp,
+  // upListFetch,
+  // contacts,
+  // onUp,
   propAlert,
 }) => {
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(getContactsItems);
+
   const [text, setText] = useState('');
   const [number, setNumber] = useState('');
   const [alert, setAlert] = useState(false);
 
-  useEffect(() => {
-    if (
-      contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
-      text !== '' &&
-      !alert
-    ) {
-      setAlert('name');
-      setTimeout(() => {
-        setText('');
-        setNumber('');
-      }, 500);
-      setTimeout(() => {
-        setAlert(false);
-      }, 3000);
-      return;
-    }
+  // useEffect(() => {
+  //   if (
+  //     contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
+  //     text !== '' &&
+  //     !alert
+  //   ) {
+  //     setAlert('name');
+  //     setTimeout(() => {
+  //       setText('');
+  //       setNumber('');
+  //     }, 500);
+  //     setTimeout(() => {
+  //       setAlert(false);
+  //     }, 3000);
+  //   }
 
-    propAlert(alert);
-  }, [text, number, alert, contacts, propAlert]);
+  //   propAlert(alert);
+  // }, [text, number, alert, contacts, propAlert]);
 
   const phonebookValue = e => {
     if (e.target.value !== '') {
@@ -47,20 +59,36 @@ const UpDate = ({
 
   const btnClick = e => {
     e.preventDefault();
-    if (text === '' && number !== '' && number !== propNumber) {
-      onUp(id, propName, number);
-    } else if (number === '' && text !== '') {
-      onUp(id, text, propNumber);
-    } else if (number === '' && text === '') {
-      return;
-    } else if (number !== '' && text !== '') {
-      onUp(id, text, number);
+
+    if (
+      !alert &&
+      contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
+      text !== ''
+    ) {
+      propAlert('name');
+      setTimeout(() => {
+        setText('');
+        setNumber('');
+      }, 500);
+      setTimeout(() => {
+        setAlert(false);
+      }, 3000);
+    } else {
+      if (text === '' && number !== '' && number !== propNumber) {
+        dispatch(upList(id, propName, number));
+      } else if (number === '' && text !== '') {
+        dispatch(upList(id, text, propNumber));
+      } else if (number === '' && text === '') {
+        return;
+      } else if (number !== '' && text !== '') {
+        dispatch(upList(id, text, number));
+      }
+      setText('');
+      setNumber('');
+      setTimeout(() => {
+        dispatch(fetchList());
+      }, 250);
     }
-    setText('');
-    setNumber('');
-    setTimeout(() => {
-      upListFetch();
-    }, 250);
   };
 
   return (
@@ -101,13 +129,4 @@ UpDate.propTypes = {
   phonebookValue: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-  contacts: getContactsItems(state),
-});
-
-const mapDispatchToProps = {
-  onUp: upList,
-  upListFetch: fetchList,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UpDate);
+export default UpDate;

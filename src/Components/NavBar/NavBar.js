@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getIsAutheticated } from '../../redux/Auth/authSelectors';
 import s from './NavBar.module.css';
 
-function NavBar({ isLoggedIn }) {
+function NavBar() {
+  const isLoggedIn = useSelector(getIsAutheticated);
+
   return (
     <ul className={s.ul}>
       <li>
@@ -31,10 +33,8 @@ function NavBar({ isLoggedIn }) {
     </ul>
   );
 }
-const mapStateToProps = state => ({
-  isLoggedIn: getIsAutheticated(state),
-});
+// const mapStateToProps = state => ({
+//   isLoggedIn: getIsAutheticated(state),
+// });
 
-const mapDispatchToProps = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;

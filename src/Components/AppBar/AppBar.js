@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import NavBar from '../NavBar/NavBar';
 import Navigation from '../Navigation/Navigation';
 import UserMenu from '../UserMenu/UserMenu';
 import s from './AppBar.module.css';
 import { getIsAutheticated } from '../../redux/Auth/authSelectors';
 
-export class AppBar extends Component {
-  render() {
-    return (
-      <div className={s.div}>
-        <NavBar />
-        {this.props.isAuthenticated ? <UserMenu /> : <Navigation />}
-      </div>
-    );
-  }
-}
+export const AppBar = () => {
+  const isAuthenticated = useSelector(getIsAutheticated);
 
-const mapStateToProps = state => ({
-  isAuthenticated: getIsAutheticated(state),
-});
+  // render() {
+  return (
+    <div className={s.div}>
+      <NavBar />
+      {isAuthenticated ? <UserMenu /> : <Navigation />}
+    </div>
+  );
+  // }
+};
 
-const mapDispatchToProps = {};
+// const mapStateToProps = state => ({
+//   isAuthenticated: getIsAutheticated(state),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppBar);
+export default AppBar;
