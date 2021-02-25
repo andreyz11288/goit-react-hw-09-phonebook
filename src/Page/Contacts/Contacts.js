@@ -65,7 +65,7 @@ const Contacts = () => {
       setMessage2(true);
       setText2('Заполните все поля');
       setTimeout(() => {
-        setMessage2('');
+        setMessage2(false);
         setText2('');
       }, 3000);
     }
