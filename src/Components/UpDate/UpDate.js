@@ -5,24 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { upList, fetchList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
 
-// const mapStateToProps = state => ({
-//   contacts: getContactsItems(state),
-// });
-
-// const mapDispatchToProps = {
-//   onUp: upList,
-//   upListFetch: fetchList,
-// };
-
-const UpDate = ({
-  propNumber,
-  propName,
-  id,
-  // upListFetch,
-  // contacts,
-  // onUp,
-  propAlert,
-}) => {
+const UpDate = ({ propNumber, propName, id, propAlert }) => {
   const dispatch = useDispatch();
 
   const contacts = useSelector(getContactsItems);
@@ -30,25 +13,6 @@ const UpDate = ({
   const [text, setText] = useState('');
   const [number, setNumber] = useState('');
   const [alert, setAlert] = useState(false);
-
-  // useEffect(() => {
-  //   if (
-  //     contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
-  //     text !== '' &&
-  //     !alert
-  //   ) {
-  //     setAlert('name');
-  //     setTimeout(() => {
-  //       setText('');
-  //       setNumber('');
-  //     }, 500);
-  //     setTimeout(() => {
-  //       setAlert(false);
-  //     }, 3000);
-  //   }
-
-  //   propAlert(alert);
-  // }, [text, number, alert, contacts, propAlert]);
 
   const phonebookValue = e => {
     if (e.target.value !== '') {

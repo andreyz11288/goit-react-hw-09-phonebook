@@ -35,11 +35,5 @@ const HomePage = () => {
     </div>
   );
 };
-// const mapStateToProps = state => ({
-//   isLogin: getIsAutheticated(state),
-//   name: getUserName(state),
-// });
-
-// const mapDispatchToProps = {}
 
 export default HomePage;

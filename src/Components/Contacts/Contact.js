@@ -2,24 +2,10 @@ import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import {
-  deleteList,
-  fetchList,
-  // upList,
-} from '../../redux/Contacts/listOperations';
+import { deleteList, fetchList } from '../../redux/Contacts/listOperations';
 import React, { useState, useEffect } from 'react';
 import { getFilterContact } from '../../redux/Contacts/contacts-selectors';
 import UpDate from '../UpDate/UpDate';
-
-// const mapStateToProps = state => {
-//   return { contacts: getFilterContact(state) };
-// };
-
-// const mapDispatchToProps = {
-//   deleteList: deleteList,
-//   fetchList: fetchList,
-//   onClickUp: upList,
-// };
 
 const Contact = ({ alert }) => {
   const dispatch = useDispatch();

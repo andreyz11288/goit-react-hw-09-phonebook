@@ -33,8 +33,5 @@ function NavBar() {
     </ul>
   );
 }
-// const mapStateToProps = state => ({
-//   isLoggedIn: getIsAutheticated(state),
-// });
 
 export default NavBar;

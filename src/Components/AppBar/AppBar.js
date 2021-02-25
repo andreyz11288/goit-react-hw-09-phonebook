@@ -9,18 +9,12 @@ import { getIsAutheticated } from '../../redux/Auth/authSelectors';
 export const AppBar = () => {
   const isAuthenticated = useSelector(getIsAutheticated);
 
-  // render() {
   return (
     <div className={s.div}>
       <NavBar />
       {isAuthenticated ? <UserMenu /> : <Navigation />}
     </div>
   );
-  // }
 };
-
-// const mapStateToProps = state => ({
-//   isAuthenticated: getIsAutheticated(state),
-// });
 
 export default AppBar;

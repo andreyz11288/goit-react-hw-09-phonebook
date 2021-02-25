@@ -27,12 +27,4 @@ Filter.propTypes = {
   filter: PropTypes.string,
 };
 
-// const mapStateToProps = state => ({
-//   filter: getFilter(state),
-// });
-
-// const mapDispatchToProps = {
-//   changeFilter: filterList,
-// };
-
 export default Filter;

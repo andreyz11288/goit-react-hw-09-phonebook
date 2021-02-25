@@ -1,41 +1,24 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import s from './Login.module.css';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { loginAuth } from '../../redux/Auth/authOperation';
 
-// const mapDispatchToProps = {
-//   onLogin: loginAuth,
-// };
-
 const Login = () => {
-  // static propTypes = {
   const dispatch = useDispatch();
-  //   phonebookValue: PropTypes.func,
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // };
-  // state = {
-  //   email: '',
-  //   password: '',
-  // };
 
   const emailFunc = e => setEmail(e.target.value);
   const passwordFunc = e => setPassword(e.target.value);
 
   const btnClick = e => {
     e.preventDefault();
-    // console.log(this.state.text, this.state.password);
     dispatch(loginAuth({ email, password }));
-    // this.props.phonebookValue(this.state.text, this.state.number);
     setEmail('');
     setPassword('');
-    // this.setState({ email: '', password: '' });
   };
 
-  // render() {
-  // const { text, password } = this.state;
   return (
     <>
       <h1 className={s.h1}>Aвторизация</h1>

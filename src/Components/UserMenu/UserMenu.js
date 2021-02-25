@@ -23,12 +23,4 @@ const UserMenu = () => {
   );
 };
 
-// const mapStateToProps = state => ({
-//   email: getUserEmail(state),
-// });
-
-// const mapDispatchToProps = {
-//   onLogout: logOutAuth,
-// };
-
 export default UserMenu;
