@@ -1,22 +1,36 @@
 import s from './Contacts.module.css';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {
   deleteList,
   fetchList,
-  upList,
+  // upList,
 } from '../../redux/Contacts/listOperations';
 import React, { useState, useEffect } from 'react';
 import { getFilterContact } from '../../redux/Contacts/contacts-selectors';
 import UpDate from '../UpDate/UpDate';
 
-const Contact = ({ fetchList, deleteList, contacts, alert }) => {
+// const mapStateToProps = state => {
+//   return { contacts: getFilterContact(state) };
+// };
+
+// const mapDispatchToProps = {
+//   deleteList: deleteList,
+//   fetchList: fetchList,
+//   onClickUp: upList,
+// };
+
+const Contact = ({ alert }) => {
+  const dispatch = useDispatch();
+
   const [clickUp, setClickUp] = useState(false);
 
+  const contacts = useSelector(getFilterContact);
+
   useEffect(() => {
-    fetchList();
-  }, [fetchList]);
+    dispatch(fetchList());
+  }, [dispatch]);
 
   const onClick = e => {
     setClickUp(e);
@@ -42,7 +56,7 @@ const Contact = ({ fetchList, deleteList, contacts, alert }) => {
               <button
                 className={s.button}
                 type="submit"
-                onClick={() => deleteList(e.id)}
+                onClick={() => dispatch(deleteList(e.id))}
               >
                 Удалить
               </button>
@@ -62,17 +76,7 @@ const Contact = ({ fetchList, deleteList, contacts, alert }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return { contacts: getFilterContact(state) };
-};
-
-const mapDispatchToProps = {
-  deleteList: deleteList,
-  fetchList: fetchList,
-  onClickUp: upList,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Contact);
+export default Contact;
 
 Contact.propTypes = {
   contacts: PropTypes.array,
