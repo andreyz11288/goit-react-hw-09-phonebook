@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { Component } from 'react';
 import s from './Contacts.module.css';
 import Contact from '../../Components/Contacts/Contact';
 import Phonebook from '../../Components/Phonebook/Phonebook';
@@ -9,109 +9,121 @@ import { connect } from 'react-redux';
 import { addList } from '../../redux/Contacts/listOperations';
 import { getContactsItems } from '../../redux/Contacts/contacts-selectors';
 
-const Contacts = ({ contacts, onAddList }) => {
-  const [text, setText] = useState('');
-  const [text2, setText2] = useState('');
-  const [message, setMessage] = useState(false);
-  const [message2, setMessage2] = useState(false);
-  const [alert, setAlert] = useState(false);
+class Contacts extends Component {
+  state = {
+    text: '',
+    text2: '',
+    message: false,
+    message2: false,
+    alert: false,
+  };
 
-  useEffect(() => {
+  componentDidUpdate(prevProps, prevState) {
+    const { text, message } = this.state;
     if (
       !message &&
-      contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) &&
+      this.props.contacts
+        .map(e => e.name.toLowerCase())
+        .includes(text.toLowerCase()) &&
       text !== ''
     ) {
-      setAlert(true);
+      this.setState({ alert: true });
     }
-    if (alert === true) {
-      setMessage(true);
-      setText2('Такой контакт уже существует!');
-      setAlert(false);
+    if (this.state.alert === true) {
+      this.setState({ message: true, text2: 'Такой контакт уже существует!' });
+      this.setState({ alert: false });
       setTimeout(() => {
-        setMessage(false);
-        setText2('');
-        setText('');
+        this.setState({ message: false, text: '', text2: '' });
+      }, 3000);
+      return;
+    }
+    if (this.state.alert === 'name') {
+      this.setState({
+        message: true,
+        text2: 'Контакт с таким именем уже существует!',
+      });
+      this.setState({ alert: false });
+      setTimeout(() => {
+        this.setState({ message: false, text: '', text2: '' });
       }, 3000);
     }
-    if (alert === 'name') {
-      setMessage(true);
-      setText2('Контакт с таким именем уже существует!');
-      setAlert(false);
-      setTimeout(() => {
-        setMessage(false);
-        setText2('');
-        setText('');
-      }, 3000);
-    }
-  }, [alert, contacts, message, text]);
+  }
 
-  const phonebookValue = (text, number) => {
+  phonebookValue = (text, number) => {
     if (
       text !== '' &&
       number !== '' &&
-      contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase()) ===
-        false
+      this.props.contacts
+        .map(e => e.name.toLowerCase())
+        .includes(text.toLowerCase()) === false
     ) {
-      onAddList(text, number);
+      this.props.onAddList(text, number);
     } else {
-      setMessage2(true);
-      setText2('Заполните все поля');
+      this.setState({ message2: true, text2: 'Заполните все поля' });
       setTimeout(() => {
-        setMessage2(false);
-        setText2('');
+        this.setState({ message2: false, text2: '' });
       }, 3000);
     }
-    if (contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase())) {
-      setText(text);
+    if (
+      this.props.contacts
+        .map(e => e.name.toLowerCase())
+        .includes(text.toLowerCase())
+    ) {
+      this.setState({ text });
+      return;
     }
   };
-  const alertFun = e => {
+  alert = e => {
     if (e) {
-      setAlert(e);
+      console.log(e);
+      this.setState({ alert: e });
     }
   };
 
-  return (
-    <div className={s.App}>
-      <div className={s.notif}>
-        <CSSTransition
-          in={true}
-          appear={true}
-          classNames={s}
-          timeout={500}
-          unmountOnExit
-        >
-          <h1>Phonebook</h1>
-        </CSSTransition>
-        <div>
+  render() {
+    // console.log(this.props.upDate);
+
+    return (
+      <div className={s.App}>
+        <div className={s.notif}>
           <CSSTransition
-            in={message || message2}
-            classNames="alert"
-            timeout={250}
+            in={true}
+            appear={true}
+            classNames={s}
+            timeout={500}
             unmountOnExit
           >
-            <Alert massage={text2} />
+            <h1>Phonebook</h1>
           </CSSTransition>
+          <div className="alert">
+            <CSSTransition
+              in={this.state.message || this.state.message2}
+              classNames="alert"
+              timeout={250}
+              unmountOnExit
+            >
+              <Alert massage={this.state.text2} />
+            </CSSTransition>
+          </div>
         </div>
+        <Phonebook phonebookValue={this.phonebookValue} />
+        <CSSTransition
+          in={this.props.contacts.length > 1}
+          classNames="filter"
+          timeout={250}
+          unmountOnExit
+        >
+          <Filter />
+        </CSSTransition>
+        <Contact alert={this.alert} />
       </div>
-      <Phonebook phonebookValue={phonebookValue} />
-      <CSSTransition
-        in={contacts.length > 1}
-        classNames="filter"
-        timeout={250}
-        unmountOnExit
-      >
-        <Filter />
-      </CSSTransition>
-      <Contact alert={alertFun} />
-    </div>
-  );
-  // }
-};
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   contacts: getContactsItems(state),
+  // upDate: getContact(state),
 });
 
 const mapDispatchToProps = {
