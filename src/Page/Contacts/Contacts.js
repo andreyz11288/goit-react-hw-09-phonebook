@@ -32,20 +32,23 @@ const Contacts = () => {
   };
 
   const mapContacts = useCallback(() => {
-    contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase());
+    return contacts.map(e => e.name.toLowerCase()).includes(text.toLowerCase());
   }, [contacts, text]);
 
   useEffect(() => {
-    if (!message && mapContacts && text !== '') {
-      luseFanc('Такой контакт уже существует!');
-    }
     if (alert === 'name') {
       luseFanc('Контакт с таким именем уже существует!');
     }
-  }, [alert, mapContacts, message, text]);
+  }, [alert]);
+
+  useEffect(() => {
+    if (!message && mapContacts() && text !== '') {
+      luseFanc('Такой контакт уже существует!');
+    }
+  }, [mapContacts, message, text]);
 
   const phonebookValue = (text, number) => {
-    if (text !== '' && number !== '' && mapContacts === false) {
+    if (text !== '' && number !== '' && mapContacts() === false) {
       dispatch(addList(text, number));
     } else {
       setMessage2(true);
@@ -55,7 +58,7 @@ const Contacts = () => {
         setText2('');
       }, 3000);
     }
-    if (mapContacts) {
+    if (mapContacts()) {
       setText(text);
       return;
     }
